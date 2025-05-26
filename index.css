@@ -34,6 +34,8 @@ t {
   text-align: center;
   font-weight: bold;
   color: #ffffff;
+    margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 
@@ -54,11 +56,6 @@ p {
 
 
 
-a {
-  font-size: 25px;
-  text-align: center;
-  font-weight: normal;
-  color: #ffffff;
-}
+
 
 
