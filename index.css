@@ -43,14 +43,14 @@ t {
 
 
 
-light-theme p {
+p light-theme {
   font-size: 35px;
   text-align: center;
   font-weight: normal;
   color: #ffffff;
 }
 
-dark-theme p {
+ p dark-theme {
   font-size: 35px;
   text-align: center;
   font-weight: normal;
