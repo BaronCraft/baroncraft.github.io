@@ -15,7 +15,7 @@ nav li {
 nav a {
   color: #fff;
   display: block;
-  padding: 25px;
+  padding: 30px;
   text-decoration: none;
 }
 
@@ -30,7 +30,7 @@ nav a:hover {
 
 
 t {
-  font-size: 40px;
+  font-size: 30px;
   text-align: center;
   font-weight: bold;
   color: #ffffff;
@@ -44,7 +44,7 @@ t {
 
 
 p {
-  font-size: 35px;
+  font-size: 25px;
   text-align: center;
   font-weight: normal;
   color: #ffffff;
@@ -53,7 +53,7 @@ p {
 
 
 a {
-  font-size: 35px;
+  font-size: 25px;
   text-align: center;
   font-weight: normal;
   color: #ffffff;
