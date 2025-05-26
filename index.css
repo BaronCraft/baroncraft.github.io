@@ -33,7 +33,7 @@ t {
   font-size: 50px;
   text-align: center;
   font-weight: bold;
-  color: #444444;
+  color: #ffffff;
 }
 
 
@@ -47,10 +47,12 @@ p {
   font-size: 50px;
   text-align: center;
   font-weight: normal;
+  color: #ffffff;
 }
 
 a {
   font-size: 50px;
   text-align: center;
   font-weight: normal;
+  color: #ffffff;
 }
