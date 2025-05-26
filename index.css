@@ -44,14 +44,14 @@ t {
 
 
 light-theme p {
-  font-size: 25px;
+  font-size: 35px;
   text-align: center;
   font-weight: normal;
   color: #ffffff;
 }
 
 dark-theme p {
-  font-size: 25px;
+  font-size: 35px;
   text-align: center;
   font-weight: normal;
   color: #000000;
@@ -59,7 +59,7 @@ dark-theme p {
 
 
 a {
-  font-size: 25px;
+  font-size: 35px;
   text-align: center;
   font-weight: normal;
   color: #ffffff;
