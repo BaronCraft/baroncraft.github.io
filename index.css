@@ -15,6 +15,7 @@ nav li {
 nav a {
   color: #fff;
   display: block;
+  font-size: 40px;
   padding: 50px;
   text-decoration: none;
 }
