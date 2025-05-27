@@ -69,5 +69,12 @@ p {
 
 
 
+@font-face {
+  font-family: 'Minecraft';
+  src: url('Minecraft.ttf') format('ttf'), 
+  url('Minecraft.ttf') format('ttf');
+}
 
+body {
+  font-family: 'Minecraft', Minecraft;
 
