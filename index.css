@@ -58,7 +58,7 @@ p {
 
 
 
-.parent {
+.cent {
   display: grid;
   place-items: center;
   height: 100vh;
