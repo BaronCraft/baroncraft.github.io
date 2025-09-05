@@ -8,4 +8,14 @@ h1 {
     margin-bottom: 1em;
     font-weight: bold;
     font-family: Arial, sans-serif;
+    text-align: justify;
+}
+p1 {
+    display: block;
+    font-size: 5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-align: justify;
 }
