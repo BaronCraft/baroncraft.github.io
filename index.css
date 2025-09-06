@@ -25,12 +25,4 @@ a {
     color: #1E90FF; 
     text-decoration: underline;
     cursor: pointer;
-}
-a {
-    display: block;
-    font-size: 1.5em;
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    color: #cfdffc;
+
