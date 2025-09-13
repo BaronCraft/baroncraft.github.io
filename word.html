@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Онлайн блокнот</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #4caf50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    textarea {
+      flex-grow: 1;
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 16px;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+    footer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: #f0f0f0;
+    }
+    button {
+      padding: 8px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<header>Онлайн блокнот</header>
+
+<textarea id="notepad" placeholder="Пишите здесь..."></textarea>
+
+<footer>
+  <button onclick="saveText()">Сохранить</button>
+  <button onclick="loadText()">Загрузить</button>
+  <button onclick="clearText()">Очистить</button>
+</footer>
+
+<script>
+  const textarea = document.getElementById('notepad');
+
+  function saveText() {
+    localStorage.setItem('notepadContent', textarea.value);
+    alert('Текст сохранён');
+  }
+
+  function loadText() {
+    const saved = localStorage.getItem('notepadContent');
+    if (saved !== null) {
+      textarea.value = saved;
+      alert('Текст загружен');
+    } else {
+      alert('Сохранённого текста нет');
+    }
+  }
+
+  function clearText() {
+    if (confirm('Очистить блокнот?')) {
+      textarea.value = '';
+      localStorage.removeItem('notepadContent');
+    }
+  }
+
+  // Автозагрузка при открытии страницы
+  window.onload = () => {
+    const saved = localStorage.getItem('notepadContent');
+    if (saved !== null) {
+      textarea.value = saved;
+    }
+  };
+</script>
+
+</body>
+</html>
