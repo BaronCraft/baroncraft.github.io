@@ -28,11 +28,11 @@
       position: absolute;
       bottom: 20px;
       right: 20px;
-      width: 30vw;      /* увеличено с 20vw */
-      height: 22.5vh;   /* пропорционально 30vw × 0.75 */
+      width: 30vw;      
+      height: 22.5vh;   
       object-fit: cover;
       border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.8);  /* чуть сильнее тень */
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
       border: 2px solid #2196f3;
       background: #000;
       z-index: 10;
@@ -149,7 +149,127 @@
 
 <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
 <script>
-  // остальной JS без изменений
+  // Примерная структура для инициализации камеры и управления кнопками
+  const localVideo = document.getElementById('localVideo');
+  const remoteVideo = document.getElementById('remoteVideo');
+  const statusEl = document.getElementById('status');
+  const btnCreateCall = document.getElementById('btnCreateCall');
+  const btnHangUp = document.getElementById('btnHangUp');
+  const btnCam = document.getElementById('btnCam');
+  const btnMic = document.getElementById('btnMic');
+  const btnScreen = document.getElementById('btnScreen');
+  const micIndicator = document.getElementById('micIndicator');
+  const camIndicator = document.getElementById('camIndicator');
+  const screenIndicator = document.getElementById('screenIndicator');
+
+  let localStream = null;
+  let cameraEnabled = true;
+  let micEnabled = true;
+  let screenSharing = false;
+
+  async function startLocalStream() {
+    try {
+      localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      localVideo.srcObject = localStream;
+      cameraEnabled = true;
+      micEnabled = true;
+      updateIndicators();
+      enableControls(true);
+      statusEl.textContent = "Статус: Камера и микрофон включены";
+    } catch (err) {
+      statusEl.textContent = "Ошибка доступа к камере/микрофону: " + err.message;
+      enableControls(false);
+    }
+  }
+
+  function updateIndicators() {
+    micIndicator.className = micEnabled ? 'indicator active' : 'indicator inactive';
+    micIndicator.title = micEnabled ? 'Микрофон включен' : 'Микрофон выключен';
+    camIndicator.className = cameraEnabled ? 'indicator active' : 'indicator inactive';
+    camIndicator.title = cameraEnabled ? 'Камера включена' : 'Камера выключена';
+    screenIndicator.className = screenSharing ? 'indicator active' : 'indicator inactive';
+    screenIndicator.title = screenSharing ? 'Демонстрация экрана включена' : 'Демонстрация экрана выключена';
+  }
+
+  function enableControls(enabled) {
+    btnHangUp.disabled = !enabled;
+    btnCam.disabled = !enabled;
+    btnMic.disabled = !enabled;
+    btnScreen.disabled = !enabled;
+  }
+
+  btnCreateCall.onclick = async () => {
+    await startLocalStream();
+    btnCreateCall.disabled = true;
+    statusEl.textContent = "Статус: Звонок готов";
+  };
+
+  btnCam.onclick = () => {
+    if (!localStream) return;
+    cameraEnabled = !cameraEnabled;
+    localStream.getVideoTracks().forEach(track => track.enabled = cameraEnabled);
+    updateIndicators();
+    btnCam.textContent = cameraEnabled ? 'Выключить камеру' : 'Включить камеру';
+    statusEl.textContent = cameraEnabled ? "Камера включена" : "Камера выключена";
+  };
+
+  btnMic.onclick = () => {
+    if (!localStream) return;
+    micEnabled = !micEnabled;
+    localStream.getAudioTracks().forEach(track => track.enabled = micEnabled);
+    updateIndicators();
+    btnMic.textContent = micEnabled ? 'Выключить микрофон' : 'Включить микрофон';
+    statusEl.textContent = micEnabled ? "Микрофон включен" : "Микрофон выключен";
+  };
+
+  btnScreen.onclick = async () => {
+    if (screenSharing) {
+      stopScreenShare();
+    } else {
+      startScreenShare();
+    }
+  };
+
+  async function startScreenShare() {
+    try {
+      const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      screenSharing = true;
+      updateIndicators();
+      btnScreen.textContent = 'Остановить показ экрана';
+      statusEl.textContent = "Демонстрация экрана включена";
+
+      // Здесь можно добавить логику замены видео треков или соединения в WebRTC
+
+      screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+        stopScreenShare();
+      });
+    } catch (err) {
+      statusEl.textContent = "Ошибка при демонстрации экрана: " + err.message;
+    }
+  }
+
+  function stopScreenShare() {
+    screenSharing = false;
+    updateIndicators();
+    btnScreen.textContent = 'Показать экран';
+    statusEl.textContent = "Демонстрация экрана выключена";
+
+    // Здесь должна быть логика возврата к камере или удаление видео потока экрана
+  }
+
+  btnHangUp.onclick = () => {
+    if (localStream) {
+      localStream.getTracks().forEach(track => track.stop());
+      localStream = null;
+    }
+    cameraEnabled = false;
+    micEnabled = false;
+    screenSharing = false;
+    updateIndicators();
+    enableControls(false);
+    btnCreateCall.disabled = false;
+    statusEl.textContent = "Статус: Отключено";
+  };
 </script>
 </body>
 </html>
