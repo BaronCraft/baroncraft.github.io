@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PGN редактор шахматных партий</title>
+<style>
+  body {
+    display: flex; flex-direction: column; align-items: center; font-family: Arial, sans-serif;
+    margin: 0; padding: 20px; background: #f0f0f0;
+  }
+  #board {
+    width: 320px; height: 320px; display: grid; grid-template-columns: repeat(8, 1fr); 
+    border: 2px solid #333; margin-bottom: 10px;
+  }
+  .square {
+    width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;
+    font-size: 32px; cursor: pointer; user-select: none;
+  }
+  .white { background-color: #eeeed2; }
+  .black { background-color: #769656; color: #333; }
+  #pgn-input, #pgn-output {
+    width: 100%; max-width: 700px; height: 150px; margin-bottom: 10px;
+    font-family: monospace; font-size: 14px; padding: 10px; border: 1px solid #ccc; border-radius: 4px;
+    resize: vertical;
+  }
+  button {
+    padding: 10px 15px; margin: 5px; font-size: 14px; cursor: pointer;
+  }
+  #controls {
+    margin-bottom: 20px;
+  }
+  #status {
+    margin-top: 10px; font-weight: bold; min-height: 1.2em;
+  }
+</style>
+</head>
+<body>
+
+<h1>PGN редактор шахматных партий</h1>
+
+<div id="board"></div>
+
+<div id="controls">
+  <button id="prevMove">‹ Сделать ход назад</button>
+  <button id="nextMove">Сделать ход вперёд ›</button>
+  <button id="reset">Сбросить позицию</button>
+</div>
+
+<textarea id="pgn-input" placeholder="Вставьте PGN партии здесь"></textarea>
+<button id="loadPgn">Загрузить PGN</button>
+
+<textarea id="pgn-output" readonly placeholder="Отредактированный PGN появится здесь"></textarea>
+<button id="exportPgn">Экспортировать PGN</button>
+
+<div id="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chess.js@1.0.0/chess.min.js"></script>
+<script>
+  // Инициализация
+  const boardEl = document.getElementById('board');
+  const pgnInput = document.getElementById('pgn-input');
+  const pgnOutput = document.getElementById('pgn-output');
+  const loadBtn = document.getElementById('loadPgn');
+  const exportBtn = document.getElementById('exportPgn');
+  const prevMoveBtn = document.getElementById('prevMove');
+  const nextMoveBtn = document.getElementById('nextMove');
+  const resetBtn = document.getElementById('reset');
+  const statusEl = document.getElementById('status');
+
+  // Фигуры Unicode
+  const piecesUnicode = {
+    'p': '♟', 'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚',
+    'P': '♙', 'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔'
+  };
+
+  // Создаем игровые клетки доски с координатами
+  const files = ['a','b','c','d','e','f','g','h'];
+  const ranks = [8,7,6,5,4,3,2,1]; // сверху вниз
+
+  let chess = new Chess();
+  let historyIndex = 0; // Для навигации по ходам
+
+  // Создание доски
+  function createBoard() {
+    boardEl.innerHTML = '';
+    for (let r = 0; r < 8; r++) {
+      for (let f = 0; f < 8; f++) {
+        const square = files[f] + ranks[r];
+        const squareDiv = document.createElement('div');
+        squareDiv.classList.add('square');
+        const isWhite = (r + f) % 2 === 1;
+        squareDiv.classList.add(isWhite ? 'white' : 'black');
+   squareDiv.dataset.square = square;
+        squareDiv.title = square;
+        squareDiv.addEventListener('click', onSquareClick);
+        boardEl.appendChild(squareDiv);
+      }
+    }
+  }
+
+  // Отрисовка текущей позиции на доске
+  function renderBoard() {
+    const boardState = chess.board();
+    for(let r=0; r<8; r++) {
+      for(let f=0; f<8; f++) {
+        const square = files[f] + ranks[r];
+        const squareDiv = boardEl.querySelector(`[data-square="${square}"]`);
+        const piece = boardState[r][f];
+        squareDiv.textContent = piece ? piecesUnicode[piece.color === 'w' ? piece.type.toUpperCase() : piece.type] : '';
+      }
+    }
+  }
+
+  // Логика навигации по ходам
+  function updateStatus() {
+    statusEl.textContent = `Ход ${historyIndex} из ${chess.history().length}`;
+    prevMoveBtn.disabled = historyIndex === 0;
+    nextMoveBtn.disabled = historyIndex === chess.history().length;
+  }
+
+  let tempChess = new Chess(); // Для отката/вперёд по ходам
+
+  // Применить позиции до historyIndex
+  function applyHistoryIndex() {
+    tempChess = new Chess();
+    // Сделать первые historyIndex ходов
+    const allMoves = chess.history();
+    for(let i=0; i<historyIndex; i++) tempChess.move(allMoves[i]);
+    chess = tempChess;
+    renderBoard();
+    updateStatus();
+  }
+
+  // Загрузка PGN
+  loadBtn.addEventListener('click', () => {
+    const pgnText = pgnInput.value.trim();
+    if(!pgnText) {
+      statusEl.textContent = 'Введите PGN';
+      return;
+    }
+    const loadRes = chess.load_pgn(pgnText);
+    if(!loadRes) {
+      statusEl.textContent = 'Ошибка в PGN';
+      return;
+    }
+    historyIndex = chess.history().length;
+    renderBoard();
+    updateStatus();
+    statusEl.textContent = 'PGN загружен';
+  });
+
+  // Экспорт PGN
+  exportBtn.addEventListener('click', () => {
+    try {
+      const pgn = chess.pgn();
+      pgnOutput.value = pgn;
+      statusEl.textContent = 'PGN экспортирован';
+    } catch (e) {
+      statusEl.textContent = 'Ошибка при экспорте';
+    }
+  });
+
+  // Навигация назад
+  prevMoveBtn.addEventListener('click', () => {
+    if(historyIndex > 0) {
+      historyIndex--;
+      applyHistoryIndex();
+    }
+  });
+
+  // Навигация вперёд
+  nextMoveBtn.addEventListener('click', () => {
+    if(historyIndex < chess.history().length) {
+      historyIndex++;
+      applyHistoryIndex();
+    }
+  });
+
+  // Сброс позиции
+  resetBtn.addEventListener('click', () => {
+    chess = new Chess();
+    historyIndex = 0;
+    pgnInput.value = '';
+    pgnOutput.value = '';
+    renderBoard();
+    updateStatus();
+    statusEl.textContent = 'Изначальная позиция';
+  });
+
+  // Выделение и перемещение фигур (базово):
+  let selectedSquare = null;
+
+  function onSquareClick(e) {
+    const sq = e.currentTarget.dataset.square;
+
+    if(selectedSquare) {
+      // Пытаемся сделать ход
+      const move = chess.move({from: selectedSquare, to: sq, promotion: 'q'});
+      if (move) {
+        // Успешный ход, обновить историю
+        historyIndex = chess.history().length;
+        renderBoard();
+        updateStatus();
+        pgnInput.value = chess.pgn();
+        statusEl.textContent = `Ход сделан: ${move.san}`;
+      } else {
+        statusEl.textContent = 'Неверный ход';
+      }
+      selectedSquare = null;
+      clearSelection();
+    } else {
+      // Выделяем фигуру, если там есть фигура текущего игрока
+      const piece = chess.get(sq);
+      if(piece && piece.color === chess.turn()) {
+        selectedSquare = sq;
+        e.current
+Target.style.outline = '3px solid red';
+        statusEl.textContent = `Выбрана фигура на ${sq}`;
+      }
+    }
+  }
+
+  function clearSelection() {
+    document.querySelectorAll('.square').forEach(sq => sq.style.outline = '');
+  }
+
+  createBoard();
+  renderBoard();
+  updateStatus();
+  statusEl.textContent = 'Загрузите PGN или сделайте ход вручную (клик по фигуре → позиция)';
+</script>
+
+</body>
+</html>
