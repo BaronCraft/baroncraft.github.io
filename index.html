@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BaronCraft</title>
+    <title>BaronCraft - Майнкрафт сервер</title>
+    <meta name="description" content="BaronCraft - политический майнкрафт сервер с реальной картой мира. Создай своё государство и измени историю!">
     <link rel="icon" href="Логотип.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #ffffff;
@@ -13,6 +14,8 @@
             --header-bg: #f0f0f0;
             --menu-bg: #e0e0e0;
             --accent-color: #8B0000;
+            --gradient-start: #8B0000;
+            --gradient-end: #600000;
         }
 
         .dark-theme {
@@ -21,6 +24,18 @@
             --header-bg: #2d2d2d;
             --menu-bg: #3d3d3d;
             --accent-color: #B22222;
+            --gradient-start: #B22222;
+            --gradient-end: #8B0000;
+        }
+
+        .red-theme {
+            --bg-color: #1a0000;
+            --text-color: #ffffff;
+            --header-bg: #3d0000;
+            --menu-bg: #5a0000;
+            --accent-color: #ff3333;
+            --gradient-start: #ff3333;
+            --gradient-end: #cc0000;
         }
 
         * {
@@ -32,42 +47,44 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Изменено на Montserrat */
             transition: all 0.3s ease;
+            line-height: 1.6;
+            font-size: 21px; /* Увеличен на 5 единиц */
         }
 
         header {
             background-color: var(--header-bg);
-            padding: 15px 20px;
+            padding: 20px 25px; /* Увеличен padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px; /* Увеличен gap */
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px; /* Увеличен gap */
         }
 
         .logo-link {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px; /* Увеличен gap */
             text-decoration: none;
             color: inherit;
         }
 
         .logo-image {
-            height: 40px;
+            height: 50px; /* Увеличен размер */
             width: auto;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 29px; /* Увеличен на 5 единиц */
             font-weight: 700;
             color: var(--accent-color);
             font-family: 'Montserrat', sans-serif;
@@ -76,12 +93,12 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px; /* Увеличен gap */
         }
 
         .menu {
             display: flex;
-            gap: 8px;
+            gap: 13px; /* Увеличен gap */
             flex-wrap: wrap;
             justify-content: flex-end;
         }
@@ -94,7 +111,7 @@
             display: none;
             position: absolute;
             background-color: var(--menu-bg);
-            min-width: 160px;
+            min-width: 165px; /* Увеличен размер */
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             z-index: 1000;
             border-radius: 4px;
@@ -109,84 +126,114 @@
             display: none;
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 29px; /* Увеличен на 5 единиц */
             cursor: pointer;
             color: var(--text-color);
         }
 
         button {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); /* Градиент */
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 13px 17px; /* Увеличен padding */
             cursor: pointer;
             border-radius: 4px;
-            font-family: 'Roboto', sans-serif;
-            transition: background-color 0.3s ease;
-            font-size: 14px;
+            font-family: 'Montserrat', sans-serif; /* Изменено на Montserrat */
+            transition: all 0.3s ease;
+            font-size: 19px; /* Увеличен на 5 единиц */
             white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         button:hover {
-            background-color: #600000;
+            background: linear-gradient(135deg, var(--gradient-end), var(--gradient-start)); /* Инвертированный градиент при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .theme-toggle {
-            background: none;
-            border: 1px solid var(--accent-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, #555, #333); /* Отдельный градиент для кнопки темы */
+            color: white;
+        }
+
+        .theme-toggle:hover {
+            background: linear-gradient(135deg, #333, #555);
         }
 
         main {
-            padding: 30px 20px;
+            padding: 35px 25px; /* Увеличен padding */
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
         .intro {
-            font-size: 16px;
-            margin-bottom: 30px;
+            font-size: 21px; /* Увеличен на 5 единиц */
+            margin-bottom: 35px; /* Увеличен margin */
             line-height: 1.6;
         }
 
         .history-text {
             font-weight: 700;
             color: var(--accent-color);
-            font-size: 18px;
+            font-size: 32px; /* Увеличен для акцента */
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .action-text {
             font-weight: 600;
+            font-size: 23px; /* Увеличен на 5 единиц */
         }
 
         .section {
-            margin: 30px 0;
+            margin: 35px 0; /* Увеличен margin */
             text-align: left;
         }
 
-        h2 {
+        h1, h2 {
             color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 24px;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px; /* Увеличен padding */
+            font-size: 29px; /* Увеличен на 5 единиц */
         }
 
         footer {
             background-color: var(--header-bg);
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 25px; /* Увеличен padding */
+            margin-top: 45px; /* Увеличен margin */
+            font-size: 19px; /* Увеличен на 5 единиц */
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .theme-btn {
+            padding: 8px 12px;
+            font-size: 16px;
         }
 
         /* Мобильная версия */
         @media (max-width: 768px) {
+            body {
+                font-size: 19px; /* Увеличен на 5 единиц */
+            }
+            
             header {
                 flex-direction: column;
                 text-align: center;
-                padding: 10px 15px;
+                padding: 15px 20px; /* Увеличен padding */
             }
 
             .logo-section {
@@ -194,11 +241,11 @@
             }
 
             .logo-image {
-                height: 35px;
+                height: 45px; /* Увеличен размер */
             }
 
             .logo {
-                font-size: 20px;
+                font-size: 25px; /* Увеличен на 5 единиц */
             }
 
             nav {
@@ -210,7 +257,7 @@
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                gap: 5px;
+                gap: 10px; /* Увеличен gap */
             }
 
             .menu.active {
@@ -220,8 +267,8 @@
             .mobile-menu-btn {
                 display: block;
                 position: absolute;
-                top: 15px;
-                right: 15px;
+                top: 20px; /* Увеличен отступ */
+                right: 20px; /* Увеличен отступ */
             }
 
             .dropdown-content {
@@ -237,43 +284,55 @@
 
             button {
                 width: 100%;
-                padding: 10px;
-                font-size: 16px;
+                padding: 15px; /* Увеличен padding */
+                font-size: 21px; /* Увеличен на 5 единиц */
             }
 
             main {
-                padding: 20px 15px;
+                padding: 25px 20px; /* Увеличен padding */
             }
 
             .intro {
-                font-size: 14px;
+                font-size: 19px; /* Увеличен на 5 единиц */
             }
 
             .history-text {
-                font-size: 16px;
+                font-size: 28px; /* Увеличен для акцента */
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 25px; /* Увеличен на 5 единиц */
                 text-align: center;
+            }
+            
+            footer {
+                font-size: 17px; /* Увеличен на 5 единиц */
             }
         }
 
         @media (max-width: 480px) {
+            body {
+                font-size: 18px; /* Увеличен на 5 единиц */
+            }
+            
             .logo {
-                font-size: 18px;
+                font-size: 23px; /* Увеличен на 5 единиц */
             }
 
             .logo-image {
-                height: 30px;
+                height: 40px; /* Увеличен размер */
             }
 
             .intro {
-                font-size: 13px;
+                font-size: 18px; /* Увеличен на 5 единиц */
             }
 
             .history-text {
-                font-size: 15px;
+                font-size: 26px; /* Увеличен для акцента */
+            }
+            
+            footer {
+                font-size: 16px; /* Увеличен на 5 единиц */
             }
         }
     </style>
@@ -282,14 +341,14 @@
     <header>
         <div class="logo-section">
             <a href="/" class="logo-link">
-                <img src="Логотип.png" alt="BaronCraft Logo" class="logo-image">
+                <img src="Логотип.png" alt="Логотип BaronCraft" class="logo-image">
                 <div class="logo">BaronCraft</div>
             </a>
         </div>
         
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        <button class="mobile-menu-btn" aria-label="Открыть меню" onclick="toggleMobileMenu()">☰</button>
         
-        <nav>
+        <nav aria-label="Основная навигация">
             <div class="menu" id="mainMenu">
                 <button onclick="window.location.href='/'">Главная</button>
                 <button>Донат</button>
@@ -315,21 +374,25 @@
                     </div>
                 </div>
                 
-                <button class="theme-toggle" onclick="toggleTheme()">Тема</button>
+                <div class="theme-selector">
+                    <button class="theme-btn" onclick="setTheme('default')">Светлая</button>
+                    <button class="theme-btn" onclick="setTheme('dark')">Тёмная</button>
+                    <button class="theme-btn" onclick="setTheme('red')">Красная</button>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
         <div class="intro">
-            <p class="history-text">Войди в историю сервера и измени её!</p>
+            <h1 class="history-text">Войди в историю сервера и измени её!</h1>
             <p class="action-text">Создай своё государство! Развивайся! Воюй и побеждай!</p>
             <p>На сервере установлена карта реального мира. Здесь вы можете создать своё государство или присоединиться к одному из уже существующих, чтобы захватить весь мир!</p>
         </div>
 
         <div class="section">
             <h2>Мир наций</h2>
-            <p>BaronCraft - это политический сервер по minecraft, где игроки могут создавать свои государства, управлять ими и взаимодействовать друг с другом. Выживание построено максимально ванильно, что помогает игрокам создавать свои государства, не отходя от канонов игры</p>
+            <p>BaronCraft - это политический сервер по Minecraft, где игроки могут создавать свои государства, управлять ими и взаимодействовать друг с другом. Выживание построено максимально ванильно, что помогает игрокам создавать свои государства, не отходя от канонов игры.</p>
         </div>
     </main>
 
@@ -338,8 +401,19 @@
     </footer>
 
     <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark-theme');
+        function setTheme(themeName) {
+            // Удаляем все классы тем
+            document.body.classList.remove('dark-theme', 'red-theme');
+            
+            // Добавляем выбранную тему
+            if (themeName === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else if (themeName === 'red') {
+                document.body.classList.add('red-theme');
+            }
+            
+            // Сохраняем выбор темы в localStorage
+            localStorage.setItem('selectedTheme', themeName);
         }
 
         function toggleMobileMenu() {
@@ -363,6 +437,14 @@
                 if (!menu.contains(event.target) && !mobileBtn.contains(event.target)) {
                     menu.classList.remove('active');
                 }
+            }
+        });
+
+        // Загрузка сохраненной темы при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                setTheme(savedTheme);
             }
         });
     </script>
