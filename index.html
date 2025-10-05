@@ -16,7 +16,10 @@
             --accent-color: #8B0000;
             --gradient-start: #8B0000;
             --gradient-end: #600000;
-            --theme-btn-text: "Светлая";
+            --theme-btn-text: "🌞 Светлая";
+            --scrollbar-track: #f0f0f0;
+            --scrollbar-thumb: #8B0000;
+            --scrollbar-thumb-hover: #600000;
         }
 
         .dark-theme {
@@ -27,7 +30,10 @@
             --accent-color: #B22222;
             --gradient-start: #B22222;
             --gradient-end: #8B0000;
-            --theme-btn-text: "Тёмная";
+            --theme-btn-text: "🌙 Тёмная";
+            --scrollbar-track: #2d2d2d;
+            --scrollbar-thumb: #B22222;
+            --scrollbar-thumb-hover: #8B0000;
         }
 
         .red-theme {
@@ -38,11 +44,40 @@
             --accent-color: #ff3333;
             --gradient-start: #ff3333;
             --gradient-end: #cc0000;
-            --theme-btn-text: "Красная";
+            --theme-btn-text: "🔴 Красная";
+            --scrollbar-track: #3d0000;
+            --scrollbar-thumb: #ff3333;
+            --scrollbar-thumb-hover: #cc0000;
         }
 
         * {
             box-sizing: border-box;
+        }
+
+        /* Кастомизация скроллбара */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 6px;
+            border: 2px solid var(--scrollbar-track);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
+        }
+
+        /* Для Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
         }
 
         body {
@@ -54,6 +89,43 @@
             transition: all 0.3s ease;
             line-height: 1.6;
             font-size: 21px;
+            overflow-x: hidden;
+        }
+
+        /* Эффект загрузки */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff0000, #8B0000);
+            transition: width 2s ease-in-out;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+        }
+
+        .content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .content.loaded {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         header {
@@ -340,65 +412,98 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo-section">
-            <a href="/" class="logo-link">
-                <img src="Логотип.png" alt="Логотип BaronCraft" class="logo-image">
-                <div class="logo">BaronCraft</div>
-            </a>
-        </div>
-        
-        <button class="mobile-menu-btn" aria-label="Открыть меню" onclick="toggleMobileMenu()">☰</button>
-        
-        <nav aria-label="Основная навигация">
-            <div class="menu" id="mainMenu">
-                <button onclick="window.location.href='/'">Главная</button>
-                <button>Донат</button>
-                <button>Карта сервера</button>
-                <button>Вики</button>
-                
-                <div class="dropdown" id="socialDropdown">
-                    <button onclick="toggleDropdown('socialDropdown')">Соцсети</button>
-                    <div class="dropdown-content">
-                        <button>Telegram</button>
-                        <button>Discord</button>
-                    </div>
-                </div>
-                
-                <div class="dropdown" id="linksDropdown">
-                    <button onclick="toggleDropdown('linksDropdown')">Полезные ссылки</button>
-                    <div class="dropdown-content">
-                        <button>Тех. поддержка</button>
-                        <button>HotMC</button>
-                        <button>MinecraftRating</button>
-                        <button>TopCraft</button>
-                        <button>Boosty</button>
-                    </div>
-                </div>
-                
-                <button class="theme-toggle" onclick="toggleTheme()"></button>
+    <!-- Индикатор загрузки -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-progress" id="loadingProgress"></div>
+    </div>
+
+    <div class="content" id="content">
+        <header>
+            <div class="logo-section">
+                <a href="/" class="logo-link">
+                    <img src="Логотип.png" alt="Логотип BaronCraft" class="logo-image">
+                    <div class="logo">BaronCraft</div>
+                </a>
             </div>
-        </nav>
-    </header>
+            
+            <button class="mobile-menu-btn" aria-label="Открыть меню" onclick="toggleMobileMenu()">☰</button>
+            
+            <nav aria-label="Основная навигация">
+                <div class="menu" id="mainMenu">
+                    <button onclick="window.location.href='/'">Главная</button>
+                    <button>Донат</button>
+                    <button>Карта сервера</button>
+                    <button>Вики</button>
+                    
+                    <div class="dropdown" id="socialDropdown">
+                        <button onclick="toggleDropdown('socialDropdown')">Соцсети</button>
+                        <div class="dropdown-content">
+                            <button>Telegram</button>
+                            <button>Discord</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown" id="linksDropdown">
+                        <button onclick="toggleDropdown('linksDropdown')">Полезные ссылки</button>
+                        <div class="dropdown-content">
+                            <button>Тех. поддержка</button>
+                            <button>HotMC</button>
+                            <button>MinecraftRating</button>
+                            <button>TopCraft</button>
+                            <button>Boosty</button>
+                        </div>
+                    </div>
+                    
+                    <button class="theme-toggle" onclick="toggleTheme()"></button>
+                </div>
+            </nav>
+        </header>
 
-    <main>
-        <div class="intro">
-            <h1 class="history-text">Войди в историю сервера и измени её!</h1>
-            <p class="action-text">Создай своё государство! Развивайся! Воюй и побеждай!</p>
-            <p>На сервере установлена карта реального мира. Здесь вы можете создать своё государство или присоединиться к одному из уже существующих, чтобы захватить весь мир!</p>
-        </div>
+        <main>
+            <div class="intro">
+                <h1 class="history-text">Войди в историю сервера и измени её!</h1>
+                <p class="action-text">Создай своё государство! Развивайся! Воюй и побеждай!</p>
+                <p>На сервере установлена карта реального мира. Здесь вы можете создать своё государство или присоединиться к одному из уже существующих, чтобы захватить весь мир!</p>
+            </div>
 
-        <div class="section">
-            <h2>Мир наций</h2>
-            <p>BaronCraft - это политический сервер по Minecraft, где игроки могут создавать свои государства, управлять ими и взаимодействовать друг с другом. Выживание построено максимально ванильно, что помогает игрокам создавать свои государства, не отходя от канонов игры.</p>
-        </div>
-    </main>
+            <div class="section">
+                <h2>Мир наций</h2>
+                <p>BaronCraft - это политический сервер по Minecraft, где игроки могут создавать свои государства, управлять ими и взаимодействовать друг с другом. Выживание построено максимально ванильно, что помогает игрокам создавать свои государства, не отходя от канонов игры.</p>
+            </div>
+        </main>
 
-    <footer>
-        <p>©BaronCraft. Все права защищены</p>
-    </footer>
+        <footer>
+            <p>©BaronCraft. Все права защищены</p>
+        </footer>
+    </div>
 
     <script>
+        // Функция загрузки страницы
+        function startPageLoad() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingProgress = document.getElementById('loadingProgress');
+            const content = document.getElementById('content');
+            
+            // Показываем индикатор загрузки
+            loadingOverlay.classList.add('active');
+            
+            // Запускаем анимацию прогресса загрузки
+            setTimeout(() => {
+                loadingProgress.style.width = '100%';
+            }, 10);
+            
+            // Через 2 секунды скрываем индикатор и показываем контент
+            setTimeout(() => {
+                loadingOverlay.classList.remove('active');
+                content.classList.add('loaded');
+                
+                // Убираем индикатор из DOM после анимации
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 300);
+            }, 2000);
+        }
+
         // Определяем порядок смены тем
         const themes = ['default', 'dark', 'red'];
         
@@ -465,6 +570,9 @@
             if (savedTheme) {
                 setTheme(savedTheme);
             }
+            
+            // Запускаем анимацию загрузки
+            startPageLoad();
         });
     </script>
 </body>
