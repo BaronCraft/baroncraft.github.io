@@ -47,44 +47,44 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Montserrat', sans-serif; /* Изменено на Montserrat */
+            font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
             line-height: 1.6;
-            font-size: 21px; /* Увеличен на 5 единиц */
+            font-size: 21px;
         }
 
         header {
             background-color: var(--header-bg);
-            padding: 20px 25px; /* Увеличен padding */
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             flex-wrap: wrap;
-            gap: 20px; /* Увеличен gap */
+            gap: 20px;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 20px; /* Увеличен gap */
+            gap: 20px;
         }
 
         .logo-link {
             display: flex;
             align-items: center;
-            gap: 20px; /* Увеличен gap */
+            gap: 20px;
             text-decoration: none;
             color: inherit;
         }
 
         .logo-image {
-            height: 50px; /* Увеличен размер */
+            height: 50px;
             width: auto;
         }
 
         .logo {
-            font-size: 29px; /* Увеличен на 5 единиц */
+            font-size: 29px;
             font-weight: 700;
             color: var(--accent-color);
             font-family: 'Montserrat', sans-serif;
@@ -93,12 +93,12 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 15px; /* Увеличен gap */
+            gap: 15px;
         }
 
         .menu {
             display: flex;
-            gap: 13px; /* Увеличен gap */
+            gap: 13px;
             flex-wrap: wrap;
             justify-content: flex-end;
         }
@@ -110,12 +110,13 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: var(--menu-bg);
-            min-width: 165px; /* Увеличен размер */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background-color: transparent; /* Убрал фон */
+            min-width: 165px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15); /* Легкая тень для разделения */
             z-index: 1000;
             border-radius: 4px;
             right: 0;
+            padding-top: 5px; /* Небольшой отступ сверху */
         }
 
         .dropdown:hover .dropdown-content {
@@ -126,57 +127,57 @@
             display: none;
             background: none;
             border: none;
-            font-size: 29px; /* Увеличен на 5 единиц */
+            font-size: 29px;
             cursor: pointer;
             color: var(--text-color);
         }
 
         button {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); /* Градиент */
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: white;
             border: none;
-            padding: 13px 17px; /* Увеличен padding */
+            padding: 13px 17px;
             cursor: pointer;
             border-radius: 4px;
-            font-family: 'Montserrat', sans-serif; /* Изменено на Montserrat */
+            font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
-            font-size: 19px; /* Увеличен на 5 единиц */
+            font-size: 19px;
             white-space: nowrap;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         button:hover {
-            background: linear-gradient(135deg, var(--gradient-end), var(--gradient-start)); /* Инвертированный градиент при наведении */
+            background: linear-gradient(135deg, var(--gradient-end), var(--gradient-start));
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .theme-toggle {
-            background: linear-gradient(135deg, #555, #333); /* Отдельный градиент для кнопки темы */
+            background: linear-gradient(135deg, #666, #444);
             color: white;
         }
 
         .theme-toggle:hover {
-            background: linear-gradient(135deg, #333, #555);
+            background: linear-gradient(135deg, #555, #333);
         }
 
         main {
-            padding: 35px 25px; /* Увеличен padding */
+            padding: 35px 25px;
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
         .intro {
-            font-size: 21px; /* Увеличен на 5 единиц */
-            margin-bottom: 35px; /* Увеличен margin */
+            font-size: 21px;
+            margin-bottom: 35px;
             line-height: 1.6;
         }
 
         .history-text {
             font-weight: 700;
             color: var(--accent-color);
-            font-size: 32px; /* Увеличен для акцента */
+            font-size: 32px;
             margin-bottom: 20px;
             font-family: 'Montserrat', sans-serif;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
@@ -184,11 +185,11 @@
 
         .action-text {
             font-weight: 600;
-            font-size: 23px; /* Увеличен на 5 единиц */
+            font-size: 23px;
         }
 
         .section {
-            margin: 35px 0; /* Увеличен margin */
+            margin: 35px 0;
             text-align: left;
         }
 
@@ -200,40 +201,28 @@
 
         h2 {
             border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 15px; /* Увеличен padding */
-            font-size: 29px; /* Увеличен на 5 единиц */
+            padding-bottom: 15px;
+            font-size: 29px;
         }
 
         footer {
             background-color: var(--header-bg);
             text-align: center;
-            padding: 25px; /* Увеличен padding */
-            margin-top: 45px; /* Увеличен margin */
-            font-size: 19px; /* Увеличен на 5 единиц */
-        }
-
-        .theme-selector {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-
-        .theme-btn {
-            padding: 8px 12px;
-            font-size: 16px;
+            padding: 25px;
+            margin-top: 45px;
+            font-size: 19px;
         }
 
         /* Мобильная версия */
         @media (max-width: 768px) {
             body {
-                font-size: 19px; /* Увеличен на 5 единиц */
+                font-size: 19px;
             }
             
             header {
                 flex-direction: column;
                 text-align: center;
-                padding: 15px 20px; /* Увеличен padding */
+                padding: 15px 20px;
             }
 
             .logo-section {
@@ -241,11 +230,11 @@
             }
 
             .logo-image {
-                height: 45px; /* Увеличен размер */
+                height: 45px;
             }
 
             .logo {
-                font-size: 25px; /* Увеличен на 5 единиц */
+                font-size: 25px;
             }
 
             nav {
@@ -257,7 +246,7 @@
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                gap: 10px; /* Увеличен gap */
+                gap: 10px;
             }
 
             .menu.active {
@@ -267,8 +256,8 @@
             .mobile-menu-btn {
                 display: block;
                 position: absolute;
-                top: 20px; /* Увеличен отступ */
-                right: 20px; /* Увеличен отступ */
+                top: 20px;
+                right: 20px;
             }
 
             .dropdown-content {
@@ -276,6 +265,7 @@
                 width: 100%;
                 box-shadow: none;
                 display: none;
+                padding-top: 0;
             }
 
             .dropdown.active .dropdown-content {
@@ -284,55 +274,55 @@
 
             button {
                 width: 100%;
-                padding: 15px; /* Увеличен padding */
-                font-size: 21px; /* Увеличен на 5 единиц */
+                padding: 15px;
+                font-size: 21px;
             }
 
             main {
-                padding: 25px 20px; /* Увеличен padding */
+                padding: 25px 20px;
             }
 
             .intro {
-                font-size: 19px; /* Увеличен на 5 единиц */
+                font-size: 19px;
             }
 
             .history-text {
-                font-size: 28px; /* Увеличен для акцента */
+                font-size: 28px;
             }
 
             h2 {
-                font-size: 25px; /* Увеличен на 5 единиц */
+                font-size: 25px;
                 text-align: center;
             }
             
             footer {
-                font-size: 17px; /* Увеличен на 5 единиц */
+                font-size: 17px;
             }
         }
 
         @media (max-width: 480px) {
             body {
-                font-size: 18px; /* Увеличен на 5 единиц */
+                font-size: 18px;
             }
             
             .logo {
-                font-size: 23px; /* Увеличен на 5 единиц */
+                font-size: 23px;
             }
 
             .logo-image {
-                height: 40px; /* Увеличен размер */
+                height: 40px;
             }
 
             .intro {
-                font-size: 18px; /* Увеличен на 5 единиц */
+                font-size: 18px;
             }
 
             .history-text {
-                font-size: 26px; /* Увеличен для акцента */
+                font-size: 26px;
             }
             
             footer {
-                font-size: 16px; /* Увеличен на 5 единиц */
+                font-size: 16px;
             }
         }
     </style>
@@ -374,11 +364,7 @@
                     </div>
                 </div>
                 
-                <div class="theme-selector">
-                    <button class="theme-btn" onclick="setTheme('default')">Светлая</button>
-                    <button class="theme-btn" onclick="setTheme('dark')">Тёмная</button>
-                    <button class="theme-btn" onclick="setTheme('red')">Красная</button>
-                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">Сменить тему</button>
             </div>
         </nav>
     </header>
@@ -401,6 +387,27 @@
     </footer>
 
     <script>
+        // Определяем порядок смены тем
+        const themes = ['default', 'dark', 'red'];
+        
+        function toggleTheme() {
+            // Получаем текущую тему
+            let currentTheme = 'default';
+            if (document.body.classList.contains('dark-theme')) {
+                currentTheme = 'dark';
+            } else if (document.body.classList.contains('red-theme')) {
+                currentTheme = 'red';
+            }
+            
+            // Определяем следующую тему
+            const currentIndex = themes.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            const nextTheme = themes[nextIndex];
+            
+            // Применяем следующую тему
+            setTheme(nextTheme);
+        }
+
         function setTheme(themeName) {
             // Удаляем все классы тем
             document.body.classList.remove('dark-theme', 'red-theme');
