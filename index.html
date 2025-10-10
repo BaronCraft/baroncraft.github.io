@@ -6,6 +6,17 @@
     <title>BaronCraft</title>
     <link rel="icon" href="/server-icon.png" type="image/png">
     <style>
+        /* Selection Color */
+        ::selection {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        ::-moz-selection {
+            background: #ff6b6b;
+            color: white;
+        }
+
         /* Loading Screen */
         #loading-screen {
             position: fixed;
@@ -250,6 +261,51 @@
             font-weight: 500;
         }
 
+        .subtitle {
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            background: linear-gradient(45deg, #ffffff, #ffd6d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ip-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ip-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .ip-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .ip-btn.copied {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+
+        .ip-btn.copied::after {
+            content: ' ✓ Скопировано!';
+        }
+
         /* Content Section */
         .content {
             padding: 80px 0;
@@ -330,6 +386,15 @@
                 padding: 0 20px;
             }
 
+            .subtitle {
+                font-size: 1.7rem;
+            }
+
+            .ip-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+
             .card {
                 padding: 30px 20px;
                 margin: 20px;
@@ -373,6 +438,9 @@
             <p>Войди в историю сервера и измени её!</p>
             <p>Создай своё государство! Развивайся! Воюй и побеждай!</p>
             <p>На сервере установлена карта реального мира. Здесь вы можете создать своё государство или присоединиться к одному из уже существующих, чтобы захватить весь мир!</p>
+            
+            <div class="subtitle">Заходи на BaronCraft</div>
+            <button class="ip-btn" id="ipBtn">Скопировать айпи сервера</button>
         </div>
     </section>
 
@@ -437,6 +505,40 @@
             // Обработчики клика
             themeBtn.addEventListener('click', switchTheme);
             footerThemeBtn.addEventListener('click', switchTheme);
+
+            // IP Copy functionality
+            const ipBtn = document.getElementById('ipBtn');
+            const serverIp = 'gf-1.apexnodes.xyz:39734';
+
+            ipBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(serverIp).then(function() {
+                    // Визуальная обратная связь
+                    ipBtn.classList.add('copied');
+                    ipBtn.disabled = true;
+                    
+                    setTimeout(function() {
+                        ipBtn.classList.remove('copied');
+                        ipBtn.disabled = false;
+                    }, 2000);
+                }).catch(function(err) {
+                    // Fallback для старых браузеров
+                    const textArea = document.createElement('textarea');
+                    textArea.value = serverIp;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    // Визуальная обратная связь даже при fallback
+                    ipBtn.classList.add('copied');
+                    ipBtn.disabled = true;
+                    
+                    setTimeout(function() {
+                        ipBtn.classList.remove('copied');
+                        ipBtn.disabled = false;
+                    }, 2000);
+                });
+            });
         });
     </script>
 </body>
