@@ -6,6 +6,12 @@
     <title>BaronCraft</title>
     <link rel="icon" href="/server-icon.png" type="image/png">
     <style>
+        /* Minecraft Pixel Font */
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://cdn.jsdelivr.net/npm/minecraft-font@1.0.0/font/minecraft.woff2') format('woff2');
+        }
+
         /* Selection Color */
         ::selection {
             background: #ff6b6b;
@@ -30,6 +36,7 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 0.3s ease;
+            font-family: 'Minecraft', monospace;
         }
 
         .loading-spinner {
@@ -106,13 +113,16 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Minecraft', 'Courier New', monospace;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             transition: var(--transition);
             opacity: 0;
             animation: fadeIn 0.5s ease 0.5s forwards;
+            image-rendering: pixelated;
+            -webkit-font-smoothing: none;
+            font-smooth: never;
         }
 
         @keyframes fadeIn {
@@ -137,6 +147,7 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-bottom: 2px solid var(--accent-color);
+            font-family: 'Minecraft', monospace;
         }
 
         .nav-container {
@@ -160,12 +171,15 @@
         .logo img {
             height: 40px;
             width: auto;
+            image-rendering: pixelated;
         }
 
         .logo-text {
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--accent-color);
+            font-family: 'Minecraft', monospace;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
         .nav-controls {
@@ -174,7 +188,7 @@
             gap: 20px;
         }
 
-        .theme-btn, .support-btn {
+        .theme-btn {
             background: var(--accent-color);
             color: white;
             border: none;
@@ -183,59 +197,46 @@
             cursor: pointer;
             transition: var(--transition);
             font-weight: 500;
+            font-family: 'Minecraft', monospace;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            image-rendering: pixelated;
         }
 
-        .theme-btn:hover, .support-btn:hover {
+        .theme-btn:hover {
             background: var(--secondary-color);
             color: var(--accent-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 2px solid var(--accent-color);
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
+        /* Comments Section */
+        .comments-section {
+            padding: 80px 0;
+            background: var(--bg-color);
+            font-family: 'Minecraft', monospace;
         }
 
-        .modal-content {
-            background-color: var(--card-bg);
-            margin: 5% auto;
+        .comments-section h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-family: 'Minecraft', monospace;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .comment-form {
+            background: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
             border: 2px solid var(--accent-color);
-            position: relative;
-        }
-
-        .close {
-            color: var(--accent-color);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-            transition: var(--transition);
-        }
-
-        .close:hover {
-            color: var(--text-color);
-            transform: scale(1.1);
-        }
-
-        .modal h2 {
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Minecraft', monospace;
         }
 
         .form-group {
@@ -244,9 +245,11 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
             color: var(--text-color);
+            font-family: 'Minecraft', monospace;
+            font-size: 1.1rem;
         }
 
         .form-group input,
@@ -259,6 +262,9 @@
             color: var(--text-color);
             font-size: 16px;
             transition: var(--transition);
+            font-family: 'Minecraft', monospace;
+            image-rendering: pixelated;
+            border: 2px solid #8B8B8B;
         }
 
         .form-group input:focus,
@@ -270,8 +276,7 @@
 
         .form-group textarea {
             resize: vertical;
-            min-height: 120px;
-            font-family: inherit;
+            min-height: 100px;
         }
 
         .submit-btn {
@@ -283,30 +288,111 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            width: 100%;
             transition: var(--transition);
+            width: 100%;
+            font-family: 'Minecraft', monospace;
+            border: 2px solid transparent;
         }
 
         .submit-btn:hover {
             background: var(--secondary-color);
             color: var(--accent-color);
             transform: translateY(-2px);
+            border: 2px solid var(--accent-color);
         }
 
-        .submit-btn:disabled {
+        .comments-list {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Minecraft', monospace;
+        }
+
+        .comment-group {
+            margin-bottom: 30px;
+        }
+
+        .comment-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 15px;
             background: var(--secondary-color);
-            cursor: not-allowed;
-            transform: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Minecraft', monospace;
+            border: 2px solid transparent;
         }
 
-        .success-message {
-            background: #4CAF50;
+        .comment-group-header:hover {
+            background: var(--accent-color);
             color: white;
-            padding: 15px;
-            border-radius: 8px;
+            border: 2px solid var(--text-color);
+        }
+
+        .comment-group-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .comment-group-count {
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            border: 1px solid white;
+        }
+
+        .comment {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+            transition: var(--transition);
+            font-family: 'Minecraft', monospace;
+            border: 2px solid #8B8B8B;
+        }
+
+        .comment:hover {
+            transform: translateX(5px);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+        }
+
+        .comment-date {
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .comment-text {
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        .no-comments {
             text-align: center;
-            margin-top: 15px;
-            display: none;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-style: italic;
+            padding: 40px 0;
+            font-family: 'Minecraft', monospace;
         }
 
         /* Hero Section */
@@ -327,6 +413,7 @@
             color: white;
             position: relative;
             overflow: hidden;
+            font-family: 'Minecraft', monospace;
         }
 
         @keyframes gradientShift {
@@ -362,11 +449,13 @@
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.5);
             background: linear-gradient(45deg, #ffffff, #ffe6e6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-family: 'Minecraft', monospace;
+            letter-spacing: 1px;
         }
 
         .hero p {
@@ -374,8 +463,9 @@
             max-width: 800px;
             margin: 0 auto 20px;
             opacity: 0.95;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
             font-weight: 500;
+            font-family: 'Minecraft', monospace;
         }
 
         /* Join Section */
@@ -383,6 +473,7 @@
             padding: 80px 0;
             text-align: center;
             background: var(--bg-color);
+            font-family: 'Minecraft', monospace;
         }
 
         .subtitle {
@@ -390,6 +481,8 @@
             margin-bottom: 30px;
             color: var(--accent-color);
             font-weight: bold;
+            font-family: 'Minecraft', monospace;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
         .ip-btn {
@@ -405,6 +498,9 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: 'Minecraft', monospace;
+            border: 2px solid transparent;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
         }
 
         .ip-btn:hover {
@@ -412,6 +508,7 @@
             color: var(--accent-color);
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent-color);
         }
 
         .ip-btn:active {
@@ -426,6 +523,7 @@
         /* Content Section */
         .content {
             padding: 80px 0;
+            font-family: 'Minecraft', monospace;
         }
 
         .card {
@@ -437,11 +535,13 @@
             max-width: 900px;
             transition: var(--transition);
             border: 1px solid var(--accent-color);
+            font-family: 'Minecraft', monospace;
+            border: 2px solid #8B8B8B;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.2);
         }
 
         .card h2 {
@@ -449,12 +549,15 @@
             margin-bottom: 20px;
             font-size: 2rem;
             text-align: center;
+            font-family: 'Minecraft', monospace;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
         .card p {
             font-size: 1.1rem;
             line-height: 1.8;
             text-align: center;
+            font-family: 'Minecraft', monospace;
         }
 
         /* Footer */
@@ -464,6 +567,7 @@
             padding: 40px 0;
             text-align: center;
             border-top: 2px solid var(--accent-color);
+            font-family: 'Minecraft', monospace;
         }
 
         .footer-content {
@@ -485,6 +589,7 @@
             opacity: 0.8;
             margin-top: 20px;
             font-size: 0.9rem;
+            font-family: 'Minecraft', monospace;
         }
 
         /* Responsive */
@@ -522,16 +627,27 @@
                 margin: 20px;
             }
 
+            .comment-form {
+                padding: 20px;
+                margin: 20px;
+            }
+
             .footer-controls {
                 flex-direction: column;
                 gap: 20px;
             }
+        }
 
-            .modal-content {
-                margin: 10% auto;
-                width: 95%;
-                padding: 20px;
-            }
+        /* Minecraft-specific styles */
+        .minecraft-border {
+            border: 2px solid #8B8B8B;
+            border-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVQImWNgYGD4z4AEAAAiAAGECWgMAAAAAElFTkSuQmCC') 2 stretch;
+        }
+
+        .pixel-text {
+            image-rendering: pixelated;
+            -webkit-font-smoothing: none;
+            font-smooth: never;
         }
     </style>
 </head>
@@ -539,32 +655,6 @@
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-spinner"></div>
-    </div>
-
-    <!-- Support Modal -->
-    <div id="supportModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Техническая поддержка</h2>
-            <form id="supportForm">
-                <div class="form-group">
-                    <label for="name">Имя:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Сообщение:</label>
-                    <textarea id="message" name="message" placeholder="Опишите вашу проблему..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn" id="submitBtn">Отправить</button>
-                <div class="success-message" id="successMessage">
-                    Сообщение отправлено! Мы ответим вам в ближайшее время.
-                </div>
-            </form>
-        </div>
     </div>
 
     <!-- Header -->
@@ -575,7 +665,6 @@
                 <div class="logo-text">BaronCraft</div>
             </a>
             <div class="nav-controls">
-                <button class="support-btn" id="supportBtn">Техподдержка</button>
                 <button class="theme-btn" id="themeBtn">Сменить тему</button>
             </div>
         </div>
@@ -609,11 +698,37 @@
         </div>
     </section>
 
+    <!-- Comments Section -->
+    <section class="comments-section">
+        <div class="container">
+            <h2>Комментарии игроков</h2>
+            
+            <!-- Comment Form -->
+            <div class="comment-form">
+                <form id="commentForm">
+                    <div class="form-group">
+                        <label for="commentName">Имя:</label>
+                        <input type="text" id="commentName" name="name" required placeholder="Введите ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentText">Комментарий:</label>
+                        <textarea id="commentText" name="comment" required placeholder="Оставьте ваш комментарий..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Опубликовать комментарий</button>
+                </form>
+            </div>
+
+            <!-- Comments List -->
+            <div class="comments-list" id="commentsList">
+                <!-- Comments will be loaded here -->
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <div class="footer-controls">
-                <button class="support-btn" id="footerSupportBtn">Техподдержка</button>
                 <button class="theme-btn" id="footerThemeBtn">Сменить тему</button>
             </div>
             <div class="copyright">
@@ -656,6 +771,7 @@
                 
                 body.setAttribute('data-theme', nextTheme);
                 localStorage.setItem('theme', nextTheme);
+                renderComments(); // Перерисовываем комментарии при смене темы
             }
             
             // Обработчики клика
@@ -664,12 +780,11 @@
 
             // IP Copy functionality
             const ipBtn = document.getElementById('ipBtn');
-            const serverIp = 'baroncraft.mc-games.xyz'; // Обновлённый IP
+            const serverIp = 'baroncraft.mc-games.xyz';
             const originalText = ipBtn.textContent;
 
             ipBtn.addEventListener('click', function() {
                 navigator.clipboard.writeText(serverIp).then(function() {
-                    // Визуальная обратная связь - меняем текст
                     ipBtn.textContent = 'Скопировано!';
                     ipBtn.classList.add('copied');
                     ipBtn.disabled = true;
@@ -680,7 +795,6 @@
                         ipBtn.disabled = false;
                     }, 2000);
                 }).catch(function(err) {
-                    // Fallback для старых браузеров
                     const textArea = document.createElement('textarea');
                     textArea.value = serverIp;
                     document.body.appendChild(textArea);
@@ -688,7 +802,6 @@
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
                     
-                    // Визуальная обратная связь даже при fallback
                     ipBtn.textContent = 'Скопировано!';
                     ipBtn.classList.add('copied');
                     ipBtn.disabled = true;
@@ -701,93 +814,134 @@
                 });
             });
 
-            // Support Modal functionality
-            const supportBtn = document.getElementById('supportBtn');
-            const footerSupportBtn = document.getElementById('footerSupportBtn');
-            const modal = document.getElementById('supportModal');
-            const closeBtn = document.querySelector('.close');
-            const supportForm = document.getElementById('supportForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('successMessage');
+            // Comments functionality
+            const commentForm = document.getElementById('commentForm');
+            const commentsList = document.getElementById('commentsList');
+            const commentNameInput = document.getElementById('commentName');
 
-            // Open modal
-            supportBtn.addEventListener('click', function() {
-                modal.style.display = 'block';
-            });
+            // Загружаем сохранённое имя
+            const savedName = localStorage.getItem('commentAuthorName');
+            if (savedName) {
+                commentNameInput.value = savedName;
+            }
 
-            footerSupportBtn.addEventListener('click', function() {
-                modal.style.display = 'block';
-            });
+            // Загружаем комментарии
+            let comments = JSON.parse(localStorage.getItem('baroncraftComments')) || [];
 
-            // Close modal
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-                resetForm();
-            });
+            // Функция рендеринга комментариев
+            function renderComments() {
+                commentsList.innerHTML = '';
 
-            // Close modal when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                    resetForm();
+                if (comments.length === 0) {
+                    commentsList.innerHTML = '<div class="no-comments">Пока нет комментариев. Будьте первым!</div>';
+                    return;
                 }
-            });
 
-            // Form submission
-            supportForm.addEventListener('submit', function(e) {
+                // Группируем комментарии по 10
+                const groupSize = 10;
+                const groups = [];
+
+                for (let i = 0; i < comments.length; i += groupSize) {
+                    groups.push(comments.slice(i, i + groupSize));
+                }
+
+                groups.forEach((group, groupIndex) => {
+                    const groupElement = document.createElement('div');
+                    groupElement.className = 'comment-group';
+                    
+                    const isFirstGroup = groupIndex === 0;
+                    const groupTitle = isFirstGroup ? 'Последние комментарии' : `Комментарии ${groups.length - groupIndex}`;
+                    
+                    groupElement.innerHTML = `
+                        <div class="comment-group-header" onclick="toggleGroup(${groupIndex})">
+                            <span class="comment-group-title">${groupTitle}</span>
+                            <span class="comment-group-count">${group.length}</span>
+                        </div>
+                        <div class="comment-group-content" style="display: ${isFirstGroup ? 'block' : 'none'}">
+                            ${group.map(comment => `
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span class="comment-author">${escapeHtml(comment.name)}</span>
+                                        <span class="comment-date">${formatDate(comment.date)}</span>
+                                    </div>
+                                    <div class="comment-text">${escapeHtml(comment.text)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    commentsList.appendChild(groupElement);
+                });
+            }
+
+            // Функция переключения видимости группы
+            window.toggleGroup = function(groupIndex) {
+                const groupContent = document.querySelectorAll('.comment-group-content')[groupIndex];
+                if (groupContent.style.display === 'none') {
+                    groupContent.style.display = 'block';
+                } else {
+                    groupContent.style.display = 'none';
+                }
+            }
+
+            // Обработчик отправки формы
+            commentForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    message: document.getElementById('message').value
+
+                const name = commentNameInput.value.trim();
+                const text = document.getElementById('commentText').value.trim();
+
+                if (!name || !text) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+
+                // Сохраняем имя
+                localStorage.setItem('commentAuthorName', name);
+
+                // Добавляем новый комментарий
+                const newComment = {
+                    name: name,
+                    text: text,
+                    date: new Date().toISOString()
                 };
 
-                // Disable submit button
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Отправка...';
+                // Добавляем в начало массива (новые сверху)
+                comments.unshift(newComment);
 
-                // Send email using Formspree
-                fetch('https://formspree.io/f/xjvzqgzy', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        ...formData,
-                        _subject: `Техподдержка BaronCraft от ${formData.name}`,
-                        _replyto: formData.email
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Show success message
-                    successMessage.style.display = 'block';
-                    supportForm.reset();
-                    
-                    // Hide success message after 5 seconds
-                    setTimeout(function() {
-                        successMessage.style.display = 'none';
-                        modal.style.display = 'none';
-                    }, 5000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
-                })
-                .finally(() => {
-                    // Re-enable submit button
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Отправить';
-                });
+                // Сохраняем в localStorage
+                localStorage.setItem('baroncraftComments', JSON.stringify(comments));
+
+                // Очищаем поле комментария
+                document.getElementById('commentText').value = '';
+
+                // Перерисовываем комментарии
+                renderComments();
+
+                // Показываем уведомление
+                alert('Комментарий опубликован!');
             });
 
-            function resetForm() {
-                supportForm.reset();
-                successMessage.style.display = 'none';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Отправить';
+            // Вспомогательные функции
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
             }
+
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('ru-RU', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            // Инициализация комментариев
+            renderComments();
         });
     </script>
 </body>
