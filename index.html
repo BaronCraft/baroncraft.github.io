@@ -174,7 +174,7 @@
             gap: 20px;
         }
 
-        .theme-btn {
+        .theme-btn, .support-btn {
             background: var(--accent-color);
             color: white;
             border: none;
@@ -185,11 +185,128 @@
             font-weight: 500;
         }
 
-        .theme-btn:hover {
+        .theme-btn:hover, .support-btn:hover {
             background: var(--secondary-color);
             color: var(--accent-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent-color);
+            position: relative;
+        }
+
+        .close {
+            color: var(--accent-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .close:hover {
+            color: var(--text-color);
+            transform: scale(1.1);
+        }
+
+        .modal h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: var(--secondary-color);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
         }
 
         /* Hero Section */
@@ -206,7 +323,7 @@
                 #8B0000 100%
             );
             background-size: 400% 400%;
-            animation: gradientShift 12s ease infinite; /* Замедлено в 2 раза */
+            animation: gradientShift 12s ease infinite;
             color: white;
             position: relative;
             overflow: hidden;
@@ -229,7 +346,7 @@
                 radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.4) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(178, 34, 34, 0.2) 0%, transparent 50%);
-            animation: float 16s ease-in-out infinite; /* Замедлено в 2 раза */
+            animation: float 16s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -377,6 +494,11 @@
                 gap: 15px;
             }
 
+            .nav-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -405,9 +527,10 @@
                 gap: 20px;
             }
 
-            .nav-controls {
-                flex-direction: column;
-                gap: 15px;
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 20px;
             }
         }
     </style>
@@ -418,6 +541,32 @@
         <div class="loading-spinner"></div>
     </div>
 
+    <!-- Support Modal -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Техническая поддержка</h2>
+            <form id="supportForm">
+                <div class="form-group">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" name="message" placeholder="Опишите вашу проблему..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">Отправить</button>
+                <div class="success-message" id="successMessage">
+                    Сообщение отправлено! Мы ответим вам в ближайшее время.
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container nav-container">
@@ -426,6 +575,7 @@
                 <div class="logo-text">BaronCraft</div>
             </a>
             <div class="nav-controls">
+                <button class="support-btn" id="supportBtn">Техподдержка</button>
                 <button class="theme-btn" id="themeBtn">Сменить тему</button>
             </div>
         </div>
@@ -463,6 +613,7 @@
     <footer>
         <div class="container footer-content">
             <div class="footer-controls">
+                <button class="support-btn" id="footerSupportBtn">Техподдержка</button>
                 <button class="theme-btn" id="footerThemeBtn">Сменить тему</button>
             </div>
             <div class="copyright">
@@ -513,7 +664,7 @@
 
             // IP Copy functionality
             const ipBtn = document.getElementById('ipBtn');
-            const serverIp = 'gf-1.apexnodes.xyz:39734';
+            const serverIp = 'baroncraft.mc-games.xyz'; // Обновлённый IP
             const originalText = ipBtn.textContent;
 
             ipBtn.addEventListener('click', function() {
@@ -549,8 +700,95 @@
                     }, 2000);
                 });
             });
+
+            // Support Modal functionality
+            const supportBtn = document.getElementById('supportBtn');
+            const footerSupportBtn = document.getElementById('footerSupportBtn');
+            const modal = document.getElementById('supportModal');
+            const closeBtn = document.querySelector('.close');
+            const supportForm = document.getElementById('supportForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+
+            // Open modal
+            supportBtn.addEventListener('click', function() {
+                modal.style.display = 'block';
+            });
+
+            footerSupportBtn.addEventListener('click', function() {
+                modal.style.display = 'block';
+            });
+
+            // Close modal
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                resetForm();
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    resetForm();
+                }
+            });
+
+            // Form submission
+            supportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Отправка...';
+
+                // Send email using Formspree
+                fetch('https://formspree.io/f/xjvzqgzy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...formData,
+                        _subject: `Техподдержка BaronCraft от ${formData.name}`,
+                        _replyto: formData.email
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    supportForm.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                        modal.style.display = 'none';
+                    }, 5000);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
+                })
+                .finally(() => {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Отправить';
+                });
+            });
+
+            function resetForm() {
+                supportForm.reset();
+                successMessage.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить';
+            }
         });
     </script>
 </body>
 </html>
-          
