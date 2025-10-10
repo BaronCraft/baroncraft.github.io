@@ -5,13 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaronCraft</title>
     <link rel="icon" href="/server-icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Minecraft Pixel Font */
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('https://cdn.jsdelivr.net/npm/minecraft-font@1.0.0/font/minecraft.woff2') format('woff2');
-        }
-
         /* Selection Color */
         ::selection {
             background: #ff6b6b;
@@ -36,7 +31,7 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 0.3s ease;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .loading-spinner {
@@ -113,16 +108,13 @@
         }
 
         body {
-            font-family: 'Minecraft', 'Courier New', monospace;
+            font-family: 'Roboto Mono', monospace;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             transition: var(--transition);
             opacity: 0;
             animation: fadeIn 0.5s ease 0.5s forwards;
-            image-rendering: pixelated;
-            -webkit-font-smoothing: none;
-            font-smooth: never;
         }
 
         @keyframes fadeIn {
@@ -147,7 +139,7 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-bottom: 2px solid var(--accent-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .nav-container {
@@ -171,14 +163,13 @@
         .logo img {
             height: 40px;
             width: auto;
-            image-rendering: pixelated;
         }
 
         .logo-text {
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--accent-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
@@ -197,10 +188,9 @@
             cursor: pointer;
             transition: var(--transition);
             font-weight: 500;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             font-size: 1rem;
             border: 2px solid transparent;
-            image-rendering: pixelated;
         }
 
         .theme-btn:hover {
@@ -215,7 +205,7 @@
         .comments-section {
             padding: 80px 0;
             background: var(--bg-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .comments-section h2 {
@@ -223,7 +213,7 @@
             color: var(--accent-color);
             margin-bottom: 40px;
             font-size: 2.5rem;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
@@ -236,7 +226,7 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .form-group {
@@ -248,7 +238,7 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--text-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             font-size: 1.1rem;
         }
 
@@ -262,8 +252,7 @@
             color: var(--text-color);
             font-size: 16px;
             transition: var(--transition);
-            font-family: 'Minecraft', monospace;
-            image-rendering: pixelated;
+            font-family: 'Roboto Mono', monospace;
             border: 2px solid #8B8B8B;
         }
 
@@ -290,7 +279,7 @@
             font-weight: 600;
             transition: var(--transition);
             width: 100%;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             border: 2px solid transparent;
         }
 
@@ -304,7 +293,7 @@
         .comments-list {
             max-width: 800px;
             margin: 0 auto;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .comment-group {
@@ -321,7 +310,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: var(--transition);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             border: 2px solid transparent;
         }
 
@@ -352,7 +341,7 @@
             margin-bottom: 15px;
             border-left: 4px solid var(--accent-color);
             transition: var(--transition);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             border: 2px solid #8B8B8B;
         }
 
@@ -392,7 +381,7 @@
             opacity: 0.7;
             font-style: italic;
             padding: 40px 0;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .comments-stats {
@@ -421,7 +410,7 @@
             color: white;
             position: relative;
             overflow: hidden;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         @keyframes gradientShift {
@@ -462,7 +451,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             letter-spacing: 1px;
         }
 
@@ -473,7 +462,7 @@
             opacity: 0.95;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
             font-weight: 500;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         /* Join Section */
@@ -481,7 +470,7 @@
             padding: 80px 0;
             text-align: center;
             background: var(--bg-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .subtitle {
@@ -489,7 +478,7 @@
             margin-bottom: 30px;
             color: var(--accent-color);
             font-weight: bold;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
@@ -506,7 +495,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             border: 2px solid transparent;
             text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
         }
@@ -531,7 +520,7 @@
         /* Content Section */
         .content {
             padding: 80px 0;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .card {
@@ -543,7 +532,7 @@
             max-width: 900px;
             transition: var(--transition);
             border: 1px solid var(--accent-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             border: 2px solid #8B8B8B;
         }
 
@@ -557,7 +546,7 @@
             margin-bottom: 20px;
             font-size: 2rem;
             text-align: center;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
         }
 
@@ -565,7 +554,7 @@
             font-size: 1.1rem;
             line-height: 1.8;
             text-align: center;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         /* Footer */
@@ -575,7 +564,7 @@
             padding: 40px 0;
             text-align: center;
             border-top: 2px solid var(--accent-color);
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .footer-content {
@@ -597,7 +586,7 @@
             opacity: 0.8;
             margin-top: 20px;
             font-size: 0.9rem;
-            font-family: 'Minecraft', monospace;
+            font-family: 'Roboto Mono', monospace;
         }
 
         /* Responsive */
@@ -828,40 +817,6 @@
             const savedName = localStorage.getItem('commentAuthorName');
             if (savedName) {
                 commentNameInput.value = savedName;
-            }
-
-            // Инициализируем демо-комментарии при первом посещении
-            if (window.baroncraftComments.length === 0) {
-                initializeDemoComments();
-            }
-
-            // Функция инициализации демо-комментариев
-            function initializeDemoComments() {
-                const demoComments = [
-                    {
-                        name: "Игрок_Алекс",
-                        text: "Отличный сервер! Особенно нравится политическая система и взаимодействие между государствами.",
-                        date: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString() // 2 часа назад
-                    },
-                    {
-                        name: "Строитель_Макс",
-                        text: "Карта просто шикарная! Северные биомы отлично подходят для строительства замков.",
-                        date: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString() // 5 часов назад
-                    },
-                    {
-                        name: "Дипломат_Олег",
-                        text: "Интересная механика alliances. Уже создали коалицию с соседним государством!",
-                        date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString() // 1 день назад
-                    },
-                    {
-                        name: "Шахтер_Влад",
-                        text: "Ресурсов хватает всем, но за лучшие месторождения приходится бороться. Как в реальной политике!",
-                        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 дня назад
-                    }
-                ];
-                
-                window.baroncraftComments = demoComments;
-                updateCommentsStats();
             }
 
             // Функция обновления статистики
