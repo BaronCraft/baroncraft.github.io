@@ -5,74 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaronCraft</title>
     <link rel="icon" href="/server-icon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=T0W2IwjAFGixKmyxnlHySy7mVM6jh6dw5bIBmzggis9dNoTKJay-gDjEj9hbj0Kr" charset="UTF-8"></script><style>
-        /* Selection Color */
-        ::selection {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        ::-moz-selection {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        /* Loading Screen */
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8B0000, #B22222, #DC143C);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.3s ease;
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--secondary-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 6px;
-            border: 2px solid var(--secondary-color);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-color);
-        }
-
-        /* Firefox */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent-color) var(--secondary-color);
-        }
-
+    <style>
+        /* Critical CSS - минимум для первоначальной загрузки */
         :root {
             --primary-color: #f8f9fa;
             --secondary-color: #e9ecef;
@@ -108,19 +42,44 @@
         }
 
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Courier New', monospace;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            transition: var(--transition);
             opacity: 0;
             animation: fadeIn 0.5s ease 0.5s forwards;
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .container {
@@ -129,7 +88,6 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
         header {
             background-color: var(--primary-color);
             padding: 1rem 0;
@@ -139,7 +97,6 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-bottom: 2px solid var(--accent-color);
-            font-family: 'Roboto Mono', monospace;
         }
 
         .nav-container {
@@ -153,11 +110,6 @@
             align-items: center;
             gap: 15px;
             text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
         }
 
         .logo img {
@@ -169,13 +121,6 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--accent-color);
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
 
         .theme-btn {
@@ -187,79 +132,21 @@
             cursor: pointer;
             transition: var(--transition);
             font-weight: 500;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 1rem;
-            border: 2px solid transparent;
         }
 
-        .theme-btn:hover {
-            background: var(--secondary-color);
-            color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            border: 2px solid var(--accent-color);
-        }
-
-        /* Hero Section */
         .hero {
             margin-top: 80px;
             padding: 100px 0;
             text-align: center;
-            background: linear-gradient(
-                135deg,
-                #8B0000 0%,
-                #B22222 25%,
-                #DC143C 50%,
-                #FF6B6B 75%,
-                #8B0000 100%
-            );
-            background-size: 400% 400%;
-            animation: gradientShift 12s ease infinite;
+            background: linear-gradient(135deg, #8B0000, #B22222, #DC143C);
             color: white;
             position: relative;
             overflow: hidden;
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(178, 34, 34, 0.2) 0%, transparent 50%);
-            animation: float 16s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 30px;
-            background: linear-gradient(45deg, #ffffff, #ffe6e6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Roboto Mono', monospace;
-            letter-spacing: 1px;
         }
 
         .hero p {
@@ -267,11 +154,8 @@
             max-width: 800px;
             margin: 0 auto 20px;
             opacity: 0.95;
-            font-weight: 500;
-            font-family: 'Roboto Mono', monospace;
         }
 
-        /* Typing Animation */
         .typing-container {
             min-height: 120px;
             display: flex;
@@ -288,7 +172,6 @@
             overflow: hidden;
             border-right: 3px solid white;
             animation: blink 0.7s infinite;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         @keyframes blink {
@@ -296,12 +179,10 @@
             50% { border-color: transparent; }
         }
 
-        /* Join Section */
         .join-section {
             padding: 80px 0;
             text-align: center;
             background: var(--bg-color);
-            font-family: 'Roboto Mono', monospace;
         }
 
         .subtitle {
@@ -309,7 +190,6 @@
             margin-bottom: 30px;
             color: var(--accent-color);
             font-weight: bold;
-            font-family: 'Roboto Mono', monospace;
         }
 
         .ip-btn {
@@ -322,43 +202,17 @@
             transition: var(--transition);
             font-size: 1.2rem;
             font-weight: 600;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-family: 'Roboto Mono', monospace;
-            border: 2px solid transparent;
             margin-bottom: 15px;
-        }
-
-        .ip-btn:hover {
-            background: var(--primary-color);
-            color: var(--accent-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            border: 2px solid var(--accent-color);
-        }
-
-        .ip-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .ip-btn.copied {
-            background: #4CAF50;
-            color: white;
         }
 
         .version-info {
             color: var(--text-color);
             opacity: 0.8;
             font-size: 1rem;
-            font-family: 'Roboto Mono', monospace;
-            margin-top: 10px;
         }
 
-        /* Content Section */
         .content {
             padding: 80px 0;
-            font-family: 'Roboto Mono', monospace;
         }
 
         .card {
@@ -368,15 +222,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin: 40px auto;
             max-width: 900px;
-            transition: var(--transition);
-            border: 1px solid var(--accent-color);
-            font-family: 'Roboto Mono', monospace;
             border: 2px solid #8B8B8B;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.2);
         }
 
         .card h2 {
@@ -384,17 +230,8 @@
             margin-bottom: 20px;
             font-size: 2rem;
             text-align: center;
-            font-family: 'Roboto Mono', monospace;
         }
 
-        .card p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            text-align: center;
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        /* Map Section */
         .map-section {
             padding: 60px 0;
             background: var(--bg-color);
@@ -411,7 +248,6 @@
             color: var(--accent-color);
             font-size: 2.5rem;
             margin-bottom: 30px;
-            font-family: 'Roboto Mono', monospace;
             text-align: center;
         }
 
@@ -421,35 +257,14 @@
             height: auto;
             border: 4px solid #8B0000;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: var(--transition);
         }
 
-        .map-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
-        }
-
-        .map-description {
-            color: var(--text-color);
-            margin-top: 20px;
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-family: 'Roboto Mono', monospace;
-            text-align: center;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Footer */
         footer {
             background-color: var(--primary-color);
             color: var(--text-color);
             padding: 40px 0;
             text-align: center;
             border-top: 2px solid var(--accent-color);
-            font-family: 'Roboto Mono', monospace;
         }
 
         .footer-content {
@@ -459,29 +274,14 @@
             gap: 20px;
         }
 
-        .footer-controls {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
         .copyright {
             opacity: 0.8;
             margin-top: 20px;
             font-size: 0.9rem;
-            font-family: 'Roboto Mono', monospace;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-controls {
                 flex-direction: column;
                 gap: 15px;
             }
@@ -509,11 +309,6 @@
                 font-size: 2rem;
             }
 
-            .ip-btn {
-                padding: 12px 30px;
-                font-size: 1.1rem;
-            }
-
             .card {
                 padding: 30px 20px;
                 margin: 20px;
@@ -522,17 +317,16 @@
             .map-title {
                 font-size: 2rem;
             }
-
-            .map-image {
-                border-width: 3px;
-            }
-
-            .footer-controls {
-                flex-direction: column;
-                gap: 20px;
-            }
         }
     </style>
+    
+    <!-- Отложенная загрузка не критичных стилей -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Отложенная загрузка скрипта Касперского -->
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=T0W2IwjAFGixKmyxnlHySy7mVM6jh6dw5bIBmzggis9dNoTKJay-gDjEj9hbj0Kr" charset="UTF-8" defer></script>
 </head>
 <body data-theme="light">
     <!-- Loading Screen -->
@@ -544,7 +338,7 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="/server-icon.png" alt="BaronCraft Logo">
+                <img src="/server-icon.png" alt="BaronCraft Logo" width="40" height="40">
                 <div class="logo-text">BaronCraft</div>
             </a>
             <div class="nav-controls">
@@ -590,7 +384,7 @@
     <section class="map-section">
         <div class="map-container">
             <h2 class="map-title">Карта мира BaronCraft</h2>
-            <img src="Сжатая карта.png" alt="Карта мира BaronCraft" class="map-image">
+            <img src="Сжатая карта.png" alt="Карта мира BaronCraft" class="map-image" loading="lazy" width="800" height="450">
         </div>
     </section>
 
@@ -607,34 +401,28 @@
     </footer>
 
     <script>
-        // Глобальное хранилище комментариев в памяти сайта
-        window.baroncraftComments = window.baroncraftComments || [];
-
-        // Loading screen
-        window.addEventListener('load', function() {
+        // Минимальный необходимый JavaScript для первоначальной работы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Быстрая загрузка - скрываем loading screen сразу
             setTimeout(function() {
                 const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.opacity = '0';
-                setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                }, 300);
-            }, 500);
-        });
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(function() {
+                        loadingScreen.style.display = 'none';
+                    }, 300);
+                }
+            }, 300);
 
-        // Theme switching
-        document.addEventListener('DOMContentLoaded', function() {
+            // Базовая функциональность темы
             const themeBtn = document.getElementById('themeBtn');
             const footerThemeBtn = document.getElementById('footerThemeBtn');
             const body = document.body;
             
-            // Темы в порядке переключения
             const themes = ['light', 'dark', 'red'];
-            
-            // Загружаем сохранённую тему или устанавливаем светлую по умолчанию
             const savedTheme = localStorage.getItem('theme') || 'light';
             body.setAttribute('data-theme', savedTheme);
             
-            // Функция переключения темы
             function switchTheme() {
                 const currentTheme = body.getAttribute('data-theme');
                 const currentIndex = themes.indexOf(currentTheme);
@@ -645,48 +433,59 @@
                 localStorage.setItem('theme', nextTheme);
             }
             
-            // Обработчики клика
-            themeBtn.addEventListener('click', switchTheme);
-            footerThemeBtn.addEventListener('click', switchTheme);
+            if (themeBtn) themeBtn.addEventListener('click', switchTheme);
+            if (footerThemeBtn) footerThemeBtn.addEventListener('click', switchTheme);
 
             // IP Copy functionality
             const ipBtn = document.getElementById('ipBtn');
-            const serverIp = 'baroncraftserver.falixsrv.me';
-            const originalText = ipBtn.textContent;
+            if (ipBtn) {
+                const serverIp = 'baroncraftserver.falixsrv.me';
+                const originalText = ipBtn.textContent;
 
-            ipBtn.addEventListener('click', function() {
-                navigator.clipboard.writeText(serverIp).then(function() {
-                    ipBtn.textContent = 'Скопировано!';
-                    ipBtn.classList.add('copied');
-                    ipBtn.disabled = true;
-                    
-                    setTimeout(function() {
-                        ipBtn.textContent = originalText;
-                        ipBtn.classList.remove('copied');
-                        ipBtn.disabled = false;
-                    }, 2000);
-                }).catch(function(err) {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = serverIp;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    
-                    ipBtn.textContent = 'Скопировано!';
-                    ipBtn.classList.add('copied');
-                    ipBtn.disabled = true;
-                    
-                    setTimeout(function() {
-                        ipBtn.textContent = originalText;
-                        ipBtn.classList.remove('copied');
-                        ipBtn.disabled = false;
-                    }, 2000);
+                ipBtn.addEventListener('click', function() {
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(serverIp).then(function() {
+                            showCopiedFeedback(ipBtn, originalText);
+                        }).catch(function() {
+                            fallbackCopy(serverIp, ipBtn, originalText);
+                        });
+                    } else {
+                        fallbackCopy(serverIp, ipBtn, originalText);
+                    }
                 });
-            });
+            }
 
-            // Typing Animation
+            function showCopiedFeedback(button, originalText) {
+                button.textContent = 'Скопировано!';
+                button.classList.add('copied');
+                button.disabled = true;
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                    button.disabled = false;
+                }, 2000);
+            }
+
+            function fallbackCopy(text, button, originalText) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopiedFeedback(button, originalText);
+            }
+
+            // Отложенная загрузка анимации печати
+            setTimeout(initTypingAnimation, 1000);
+        });
+
+        // Функция анимации печати загружается позже
+        function initTypingAnimation() {
             const typingText = document.getElementById('typingText');
+            if (!typingText) return;
+
             const texts = [
                 "Войди в историю сервера и измени её!",
                 "Создай своё государство! Развивайся! Воюй и побеждай!"
@@ -696,31 +495,24 @@
             let charIndex = 0;
             let isDeleting = false;
             let typingSpeed = 100;
-            let deletingSpeed = 50;
-            let pauseTime = 2000;
 
             function typeWriter() {
                 const currentText = texts[textIndex];
                 
                 if (isDeleting) {
-                    // Удаление текста
                     typingText.textContent = currentText.substring(0, charIndex - 1);
                     charIndex--;
-                    typingSpeed = deletingSpeed;
+                    typingSpeed = 50;
                 } else {
-                    // Печать текста
                     typingText.textContent = currentText.substring(0, charIndex + 1);
                     charIndex++;
                     typingSpeed = 100;
                 }
 
-                // Если текст напечатан полностью
                 if (!isDeleting && charIndex === currentText.length) {
                     isDeleting = true;
-                    typingSpeed = pauseTime;
-                }
-                // Если текст полностью удалён
-                else if (isDeleting && charIndex === 0) {
+                    typingSpeed = 2000;
+                } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
                     textIndex = (textIndex + 1) % texts.length;
                     typingSpeed = 500;
@@ -729,9 +521,25 @@
                 setTimeout(typeWriter, typingSpeed);
             }
 
-            // Запуск анимации
-            setTimeout(typeWriter, 1000);
-        });
+            typeWriter();
+        }
+
+        // Отложенная загрузка шрифта Roboto Mono
+        setTimeout(function() {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap';
+            document.head.appendChild(link);
+            
+            // Применяем шрифт после загрузки
+            link.onload = function() {
+                document.body.style.fontFamily = "'Roboto Mono', monospace";
+                const elements = document.querySelectorAll('header, .logo-text, .theme-btn, .hero, .join-section, .content, .card, .map-section, footer');
+                elements.forEach(el => {
+                    el.style.fontFamily = "'Roboto Mono', monospace";
+                });
+            };
+        }, 2000);
     </script>
 </body>
 </html>
