@@ -292,6 +292,50 @@
             gap: 20px;
         }
 
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: var(--transition);
+            font-weight: 500;
+            font-family: 'Roboto Mono', monospace;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-link.map-link {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .nav-link.telegram-link {
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: white;
+        }
+
+        .nav-link.map-link:hover {
+            background: linear-gradient(135deg, #45a049, #4CAF50);
+            border: 2px solid #4CAF50;
+        }
+
+        .nav-link.telegram-link:hover {
+            background: linear-gradient(135deg, #006699, #0088cc);
+            border: 2px solid #0088cc;
+        }
+
         .theme-btn {
             background: var(--accent-color);
             color: white;
@@ -621,6 +665,17 @@
                 gap: 15px;
             }
 
+            .nav-menu {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .nav-link {
+                width: 100%;
+                text-align: center;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -711,7 +766,11 @@
                 <div class="logo-text">BaronCraft</div>
             </a>
             <div class="nav-controls">
-                <button class="start-server-btn" id="startServerBtn">Включить сервер самостоятельно</button>
+                <div class="nav-menu">
+                    <a href="http://baroncraftserver.falixsrv.me:29573/" class="nav-link map-link" target="_blank">Карта сервера</a>
+                    <a href="https://t.me/baroncraft_channel" class="nav-link telegram-link" target="_blank">Telegram</a>
+                    <button class="start-server-btn" id="startServerBtn">Включить сервер</button>
+                </div>
                 <button class="theme-btn" id="themeBtn">Сменить тему</button>
             </div>
         </div>
