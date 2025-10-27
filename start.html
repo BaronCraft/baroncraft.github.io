@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель запуска сервера</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .config-section {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .config-section h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .control-section {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .server-status {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+
+        .status-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-offline { 
+            background: #e74c3c; 
+            animation: pulse-offline 2s infinite;
+        }
+        .status-online { 
+            background: #2ecc71; 
+            animation: pulse-online 2s infinite;
+        }
+        .status-starting { 
+            background: #f39c12; 
+            animation: pulse-starting 1s infinite;
+        }
+        .status-stopping { 
+            background: #e67e22; 
+            animation: pulse-starting 1s infinite;
+        }
+        .status-error { 
+            background: #95a5a6; 
+        }
+
+        .status-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .status-details {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        @keyframes pulse-online {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes pulse-offline {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.2; }
+            100% { opacity: 0.5; }
+        }
+
+        @keyframes pulse-starting {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .btn {
+            padding: 16px 32px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            max-width: 200px;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .action-section {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+
+        .action-log {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            margin-top: 15px;
+            min-height: 60px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .log-success { color: #27ae60; }
+        .log-error { color: #e74c3c; }
+        .log-info { color: #3498db; }
+        .log-warning { color: #f39c12; }
+
+        .save-config {
+            background: #9b59b6;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .instructions {
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+        }
+
+        .instructions h4 {
+            margin-bottom: 8px;
+            color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Запуск сервера</h1>
+            <p>Панель управления запуском сервера</p>
+        </div>
+
+        <div class="config-section">
+            <h3>⚙️ Настройки подключения</h3>
+            <div class="form-group">
+                <label for="panelUrl">URL панели Pterodactyl</label>
+                <input type="url" id="panelUrl" placeholder="https://panel.yourdomain.com">
+            </div>
+            <div class="form-group">
+                <label for="apiKey">API Key</label>
+                <input type="password" id="apiKey" placeholder="ptlc_xxxxxxxxxxxx" value="ptlc_2X3xxuExXdy">
+            </div>
+            <div class="form-group">
+                <label for="serverId">Server Identifier</label>
+                <input type="text" id="serverId" placeholder="a1b2c3d4">
+            </div>
+            <button class="save-config" onclick="saveConfig()">💾 Сохранить настройки</button>
+            
+            <div class="instructions">
+                <h4>ℹ️ Как найти Server Identifier:</h4>
+                <p>1. Откройте ваш сервер в панели Pterodactyl<br>
+                2. В URL будет идентификатор: <code>.../server/XXXXXXXX</code><br>
+                3. Скопируйте XXXX часть</p>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <div class="server-status">
+                <div class="status-card">
+                    <span class="status-indicator status-offline" id="statusIndicator"></span>
+                    <span class="status-text" id="statusText">Статус неизвестен</span>
+                </div>
+                <div class="status-details" id="statusDetails">Нажмите "Проверить статус" для обновления</div>
+            </div>
+
+            <button class="btn btn-check" onclick="updateServerStatus()" id="btnCheck">🔄 Проверить статус</button>
+            <button class="btn btn-start" onclick="sendPowerSignal('start')" id="btnStart">🚀 Запустить сервер</button>
+        </div>
+
+        <div class="action-section">
+            <h3>📝 Последние действия</h3>
+            <div class="action-log" id="actionLog">
+                <div class="log-info">Готов к работе. Настройте подключение и сохраните настройки.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Конфигурация по умолчанию
+        let config = {
+            panelUrl: '',
+            apiKey: 'ptlc_2X3xxuExXdy',
+            serverId: ''
+        };
+
+        // Загрузка конфигурации из localStorage при загрузке страницы
+        function loadConfig() {
+            const savedConfig = localStorage.getItem('pterodactylPanelConfig');
+            if (savedConfig) {
+                const saved = JSON.parse(savedConfig);
+                config.panelUrl = saved.panelUrl || '';
+                config.serverId = saved.serverId || '';
+                
+                document.getElementById('panelUrl').value = config.panelUrl;
+                document.getElementById('apiKey').value = config.apiKey;
+                document.getElementById('serverId').value = config.serverId;
+                
+                addLog('Конфигурация загружена', 'success');
+                updateServerStatus();
+            } else {
+                // Предзаполняем API ключ
+                document.getElementById('apiKey').value = config.apiKey;
+            }
+        }
+
+        // Сохранение конфигурации
+        function saveConfig() {
+            config.panelUrl = document.getElementById('panelUrl').value.trim();
+            config.serverId = document.getElementById('serverId').value.trim();
+
+            if (!config.panelUrl || !config.serverId) {
+                addLog('Заполните все поля конфигурации', 'error');
+                return;
+            }
+
+            // Сохраняем только URL и Server ID, API ключ всегда используем встроенный
+            const configToSave = {
+                panelUrl: config.panelUrl,
+                serverId: config.serverId
+            };
+
+            localStorage.setItem('pterodactylPanelConfig', JSON.stringify(configToSave));
+            addLog('Настройки сохранены', 'success');
+            updateServerStatus();
+        }
+
+        // Отправка команды запуска
+        async function sendPowerSignal(signal) {
+            if (!validateConfig()) return;
+
+            // Блокируем кнопки на время выполнения запроса
+            document.getElementById('btnStart').disabled = true;
+            document.getElementById('btnCheck').disabled = true;
+
+            addLog(`Отправка команды запуска сервера...`, 'info');
+
+            try {
+                const response = await fetch(`${config.panelUrl}/api/client/servers/${config.serverId}/power`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${config.apiKey}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ signal: signal })
+                });
+
+                if (response.ok) {
+                    addLog(`Сервер запускается...`, 'success');
+                    // Обновляем статус через 3 секунды
+                    setTimeout(updateServerStatus, 3000);
+                } else {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.errors?.[0]?.detail || 'Неизвестная ошибка';
+                    addLog(`Ошибка запуска: ${errorMessage}`, 'error');
+                }
+            } catch (error) {
+                addLog(`Ошибка сети: ${error.message}`, 'error');
+            } finally {
+                // Включаем кнопки обратно через 2 секунды
+                setTimeout(() => {
+                    document.getElementById('btnStart').disabled = false;
+                    document.getElementById('btnCheck').disabled = false;
+                }, 2000);
+            }
+        }
+
+        // Получение статуса сервера
+        async function updateServerStatus() {
+            if (!validateConfig()) return;
+
+            document.getElementById('btnCheck').disabled = true;
+            document.getElementById('btnCheck').textContent = '🔄 Проверка...';
+
+            try {
+                const response = await fetch(`${config.panelUrl}/api/client/servers/${config.serverId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${config.apiKey}`,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const serverData = await response.json();
+                    const status = serverData.attributes.status || 'offline';
+                    updateStatusDisplay(status);
+                    addLog('Статус сервера обновлен', 'success');
+                } else {
+                    updateStatusDisplay('error');
+                    addLog('Не удалось получить статус сервера', 'error');
+                }
+            } catch (error) {
+                updateStatusDisplay('error');
+                addLog(`Ошибка при получении статуса: ${error.message}`, 'error');
+            } finally {
+                document.getElementById('btnCheck').disabled = false;
+                document.getElementById('btnCheck').textContent = '🔄 Проверить статус';
+            }
+        }
+
+        // Обновление отображения статуса
+        function updateStatusDisplay(status) {
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const statusDetails = document.getElementById('statusDetails');
+            const startButton = document.getElementById('btnStart');
+
+            const statusMessages = {
+                'running': { 
+                    text: 'Сервер запущен', 
+                    class: 'status-online',
+                    details: 'Сервер работает нормально',
+                    buttonEnabled: false
+                },
+                'offline': { 
+                    text: 'Сервер остановлен', 
+                    class: 'status-offline',
+                    details: 'Готов к запуску',
+                    buttonEnabled: true
+                },
+                'starting': { 
+                    text: 'Сервер запускается', 
+                    class: 'status-starting',
+                    details: 'Пожалуйста, подождите...',
+                    buttonEnabled: false
+                },
+                'stopping': { 
+                    text: 'Сервер останавливается', 
+                    class: 'status-stopping',
+                    details: 'Завершение работы...',
+                    buttonEnabled: false
+                },
+                'error': { 
+                    text: 'Ошибка подключения', 
+                    class: 'status-error',
+                    details: 'Проверьте настройки',
+                    buttonEnabled: false
+                }
+            };
+
+            const currentStatus = statusMessages[status] || statusMessages['offline'];
+            
+            // Обновляем отображение
+            indicator.className = 'status-indicator ' + currentStatus.class;
+            statusText.textContent = currentStatus.text;
+            statusDetails.textContent = currentStatus.details;
+            startButton.disabled = !currentStatus.buttonEnabled;
+        }
+
+        // Валидация конфигурации
+        function validateConfig() {
+            if (!config.panelUrl || !config.serverId) {
+                addLog('Сначала сохраните настройки подключения', 'warning');
+                return false;
+            }
+            return true;
+        }
+
+        // Добавление сообщения в лог действий
+        function addLog(message, type = 'info') {
+            const actionLog = document.getElementById('actionLog');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-${type}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            
+            // Очищаем лог перед добавлением нового сообщения (оставляем только последние 3)
+            const existingLogs = actionLog.getElementsByClassName(`log-${type}`);
+            if (actionLog.children.length >= 3) {
+                actionLog.removeChild(actionLog.children[0]);
+            }
+            
+            actionLog.appendChild(logEntry);
+        }
+
+        // Автоматическое обновление статуса каждые 60 секунд
+        function startStatusPolling() {
+            setInterval(() => {
+                if (validateConfig()) {
+                    updateServerStatus();
+                }
+            }, 60000);
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            startStatusPolling();
+            addLog('Панель запуска инициализирована', 'info');
+        });
+    </script>
+</body>
+</html>
