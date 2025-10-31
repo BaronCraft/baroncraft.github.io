@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донат для Minecraft сервера</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #0d1b2a);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #2a3a4a;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .products {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .donation-form {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: rgba(30, 40, 50, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            border-bottom: 1px solid #2a3a4a;
+            padding-bottom: 10px;
+        }
+        
+        .product {
+            background: rgba(40, 50, 60, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+            background: rgba(50, 60, 70, 0.8);
+        }
+        
+        .product.selected {
+            border-color: #4CAF50;
+            background: rgba(50, 70, 60, 0.7);
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .product-price {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .product-description {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 30, 40, 0.7);
+            border: 1px solid #2a3a4a;
+            border-radius: 5px;
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .currency-info {
+            background: rgba(30, 40, 50, 0.7);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .currency-rate {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .total {
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(30, 40, 50, 0.7);
+            border-radius: 8px;
+        }
+        
+        .total-amount {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #3d8b40;
+        }
+        
+        .payment-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(30, 40, 50, 0.7);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #2a3a4a;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .products, .donation-form {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Донат для Minecraft сервера</h1>
+            <p class="subtitle">Поддержите наш сервер и получите эксклюзивные привилегии!</p>
+        </header>
+        
+        <div class="content">
+            <div class="products">
+                <h2 class="section-title">Выберите товар</h2>
+                
+                <div class="currency-info">
+                    Курс обмена: <span class="currency-rate">1 рубль = 5$ игровой валюты</span>
+                </div>
+                
+                <div class="product" data-type="currency" data-price="5" data-game-currency="5">
+                    <div class="product-title">
+                        <span>Игровая валюта (5$)</span>
+                        <span class="product-price">5 руб.</span>
+                    </div>
+                    <div class="product-description">
+                        Получите 5$ игровой валюты за 5 рублей
+                    </div>
+                </div>
+                
+                <div class="product" data-type="currency" data-price="50" data-game-currency="50">
+                    <div class="product-title">
+                        <span>Игровая валюта (50$)</span>
+                        <span class="product-price">50 руб.</span>
+                    </div>
+                    <div class="product-description">
+                        Получите 50$ игровой валюты за 50 рублей
+                    </div>
+                </div>
+                
+                <div class="product" data-type="currency" data-price="100" data-game-currency="100">
+                    <div class="product-title">
+                        <span>Игровая валюта (100$)</span>
+                        <span class="product-price">100 руб.</span>
+                    </div>
+                    <div class="product-description">
+                        Получите 100$ игровой валюты за 100 рублей
+                    </div>
+                </div>
+                
+                <div class="product" data-type="privilege" data-price="150">
+                    <div class="product-title">
+                        <span>Привилегия: Князь</span>
+                        <span class="product-price">150 руб.</span>
+                    </div>
+                    <div class="product-description">
+                        Доступ к уникальным возможностям и командам
+                    </div>
+                </div>
+                
+                <div class="product" data-type="privilege" data-price="250">
+                    <div class="product-title">
+                        <span>Привилегия: Король</span>
+                        <span class="product-price">250 руб.</span>
+                    </div>
+                    <div class="product-description">
+                        Расширенные возможности и приоритет в игре
+                    </div>
+                </div>
+                
+                <div class="product" data-type="privilege" data-price="350">
+                    <div class="product-title">
+                        <span>Привилегия: Император</span>
+                        <span class="product-price">350 руб.</span>
+                    </div>
+                    <div class="product-description">
+                        Максимальный уровень привилегий с эксклюзивными правами
+                    </div>
+                </div>
+            </div>
+            
+            <div class="donation-form">
+                <h2 class="section-title">Оформление доната</h2>
+                
+                <form id="donationForm">
+                    <div class="form-group">
+                        <label for="nickname">Игровой никнейм</label>
+                        <input type="text" id="nickname" placeholder="Введите ваш ник в игре" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Номер телефона</label>
+                        <input type="tel" id="phone" placeholder="Введите номер для перевода" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Количество</label>
+                        <input type="number" id="quantity" min="1" value="1">
+                    </div>
+                    
+                    <div class="total">
+                        Итого к оплате: <span class="total-amount">5 руб.</span>
+                    </div>
+                    
+                    <button type="submit" class="btn">Перейти к оплате</button>
+                </form>
+                
+                <div class="payment-info">
+                    <p>После отправки формы, вы получите инструкции по переводу средств на привязанную к номеру карту.</p>
+                    <p>После подтверждения платежа, привилегии будут активированы в течение 24 часов.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Minecraft Server. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const products = document.querySelectorAll('.product');
+            const quantityInput = document.getElementById('quantity');
+            const totalAmount = document.querySelector('.total-amount');
+            const donationForm = document.getElementById('donationForm');
+            
+            let selectedProduct = null;
+            
+            // Выбор товара
+            products.forEach(product => {
+                product.addEventListener('click', function() {
+                    products.forEach(p => p.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedProduct = this;
+                    updateTotal();
+                });
+            });
+            
+            // Обновление суммы при изменении количества
+            quantityInput.addEventListener('input', updateTotal);
+            
+            // Функция обновления общей суммы
+            function updateTotal() {
+                if (selectedProduct) {
+                    const price = parseInt(selectedProduct.dataset.price);
+                    const quantity = parseInt(quantityInput.value) || 1;
+                    const totalInRubles = price * quantity;
+                    totalAmount.textContent = totalInRubles + ' руб.';
+                }
+            }
+            
+            // Обработка отправки формы
+            donationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!selectedProduct) {
+                    alert('Пожалуйста, выберите товар для доната');
+                    return;
+                }
+                
+                const nickname = document.getElementById('nickname').value;
+                const phone = document.getElementById('phone').value;
+                const quantity = parseInt(quantityInput.value) || 1;
+                const productType = selectedProduct.dataset.type;
+                const productPrice = parseInt(selectedProduct.dataset.price);
+                const totalInRubles = productPrice * quantity;
+                
+                let productName = selectedProduct.querySelector('.product-title span').textContent;
+                let gameCurrency = selectedProduct.dataset.gameCurrency;
+                
+                // Формируем сообщение в зависимости от типа товара
+                let message = `Спасибо за донат, ${nickname}!\n\nВы выбрали: ${productName}\nКоличество: ${quantity}\nСумма: ${totalInRubles} руб.\n\n`;
+                
+                if (productType === 'currency') {
+                    message += `Вы получите: ${gameCurrency * quantity}$ игровой валюты\n\n`;
+                } else {
+                    message += `Привилегия будет активирована на вашем аккаунте\n\n`;
+                }
+                
+                message += `Инструкции по оплате будут отправлены на номер: ${phone}`;
+                
+                alert(message);
+                
+                // Сброс формы
+                donationForm.reset();
+                products.forEach(p => p.classList.remove('selected'));
+                selectedProduct = null;
+                totalAmount.textContent = '5 руб.';
+            });
+            
+            // Выбираем первый товар по умолчанию
+            products[0].click();
+        });
+    </script>
+</body>
+</html>
