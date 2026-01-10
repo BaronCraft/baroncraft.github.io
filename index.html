@@ -83,6 +83,120 @@
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
         }
+        
+        /* Адаптивное меню для мобильных устройств */
+        @media (max-width: 768px) {
+            .nav-container {
+                position: relative;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+                animation: slideDown 0.3s ease forwards;
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .nav-menu a {
+                padding: 12px 20px;
+                text-align: center;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-menu a:hover {
+                background: rgba(139, 0, 0, 0.1);
+                transform: translateX(5px);
+            }
+            
+            .nav-controls {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 24px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                z-index: 1001;
+            }
+            
+            .mobile-menu-toggle span {
+                display: block;
+                height: 3px;
+                width: 100%;
+                background: linear-gradient(135deg, #8B0000, #B22222);
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            .http {
+                margin-left: 0;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .nav-controls {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 15px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex !important;
+                gap: 20px;
+            }
+        }
     </style>
 
     <!-- Предзагрузка шрифтов и CSS -->
@@ -120,8 +234,16 @@
                 <img src="/server-icon.png" alt="BaronCraft Logo">
                 <div class="logo-text">BaronCraft</div>
             </a>
+            
             <div class="nav-controls">
-                <div class="nav-menu">
+                <!-- Кнопка меню для мобильных устройств -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="nav-menu" id="navMenu">
                     <a href="https://t.me/baroncraft_channel" class="nav-link telegram-link" target="_blank">Telegram</a>
                     <a href="https://discord.gg/mhTWcHqWT7" class="nav-link telegram-link" target="_blank">Discord</a>
                     <a href="https://t.me/baronvikont1" class="nav-link support-link" target="_blank">Тех. поддержка</a>
@@ -199,6 +321,56 @@
                     loadingScreen.style.display = 'none';
                 }, 300);
             }, 500);
+        });
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                // Закрытие меню при клике на ссылку
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                // Закрытие меню при клике вне его области
+                document.addEventListener('click', function(event) {
+                    if (!navMenu.contains(event.target) && 
+                        !mobileMenuToggle.contains(event.target) && 
+                        navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+                
+                // Закрытие меню при нажатии Escape
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Адаптация меню при изменении размера окна
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('active');
+                    if (mobileMenuToggle) {
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                }
+            });
         });
 
         // Modal functionality
