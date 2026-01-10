@@ -83,6 +83,187 @@
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
         }
+        
+        /* Стили для навигации */
+        header {
+            padding: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #8B0000;
+        }
+        
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            background: rgba(139, 0, 0, 0.1);
+            color: #8B0000;
+        }
+        
+        .telegram-link {
+            background: linear-gradient(135deg, #0088cc, #00aced);
+            color: white !important;
+        }
+        
+        .telegram-link:hover {
+            background: linear-gradient(135deg, #0099e6, #00bfff) !important;
+            transform: translateY(-2px);
+        }
+        
+        .support-link {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white !important;
+        }
+        
+        .support-link:hover {
+            background: linear-gradient(135deg, #5CBF60, #55b059) !important;
+            transform: translateY(-2px);
+        }
+        
+        .donate-link {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333 !important;
+        }
+        
+        .donate-link:hover {
+            background: linear-gradient(135deg, #FFE700, #FFB500) !important;
+            transform: translateY(-2px);
+        }
+        
+        .map-link {
+            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+            color: white !important;
+        }
+        
+        .map-link:hover {
+            background: linear-gradient(135deg, #AC37C0, #8B2FB2) !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Адаптивные стили для мобильных устройств */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .logo {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .nav-controls {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                justify-content: center;
+                width: 100%;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 14px;
+                flex: 1;
+                min-width: 0;
+                text-align: center;
+            }
+            
+            .http {
+                margin-left: 0;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .nav-link {
+                flex: 1 1 calc(50% - 8px);
+                min-width: 120px;
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+            
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .logo img {
+                height: 32px;
+                width: 32px;
+            }
+        }
+        
+        /* Дополнительные адаптивные стили для очень маленьких экранов */
+        @media (max-width: 360px) {
+            .nav-link {
+                flex: 1 1 100%;
+                margin: 2px 0;
+            }
+            
+            .http {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
     </style>
 
     <!-- Предзагрузка шрифтов и CSS -->
@@ -120,8 +301,9 @@
                 <img src="/server-icon.png" alt="BaronCraft Logo">
                 <div class="logo-text">BaronCraft</div>
             </a>
+            
             <div class="nav-controls">
-                <div class="nav-menu">
+                <div class="nav-menu" id="navMenu">
                     <a href="https://t.me/baroncraft_channel" class="nav-link telegram-link" target="_blank">Telegram</a>
                     <a href="https://discord.gg/mhTWcHqWT7" class="nav-link telegram-link" target="_blank">Discord</a>
                     <a href="https://t.me/baronvikont1" class="nav-link support-link" target="_blank">Тех. поддержка</a>
