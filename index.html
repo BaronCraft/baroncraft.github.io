@@ -158,6 +158,28 @@
             transform: translateY(-2px);
         }
         
+        /* Новый стиль для Discord кнопки */
+        .discord-link {
+            background: linear-gradient(135deg, #5865F2, #4752C4);
+            color: white !important;
+        }
+        
+        .discord-link:hover {
+            background: linear-gradient(135deg, #6875FF, #5762D4) !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Новый стиль для Wiki кнопки */
+        .wiki-link {
+            background: linear-gradient(135deg, #2E7D32, #1B5E20);
+            color: white !important;
+        }
+        
+        .wiki-link:hover {
+            background: linear-gradient(135deg, #3E8D42, #2B6E30) !important;
+            transform: translateY(-2px);
+        }
+        
         .support-link {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white !important;
@@ -186,35 +208,6 @@
         .map-link:hover {
             background: linear-gradient(135deg, #AC37C0, #8B2FB2) !important;
             transform: translateY(-2px);
-        }
-        
-        /* Стили для новых ссылок под героем */
-        .guide-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .guide-link {
-            display: inline-block;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #8B0000, #B22222, #DC143C);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(139, 0, 0, 0.3);
-            text-align: center;
-            min-width: 200px;
-        }
-        
-        .guide-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(139, 0, 0, 0.4);
-            background: linear-gradient(135deg, #9B0000, #C23232, #EC244C);
         }
         
         /* Стили для секции героя */
@@ -289,18 +282,6 @@
                 margin-left: 0;
                 width: 100%;
                 max-width: 200px;
-            }
-            
-            .guide-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .guide-link {
-                width: 100%;
-                max-width: 280px;
-                padding: 10px 20px;
             }
         }
         
@@ -392,7 +373,8 @@
             <div class="nav-controls">
                 <div class="nav-menu" id="navMenu">
                     <a href="https://t.me/baroncraft_channel" class="nav-link telegram-link" target="_blank">Telegram</a>
-                    <a href="https://discord.gg/mhTWcHqWT7" class="nav-link telegram-link" target="_blank">Discord</a>
+                    <a href="https://discord.gg/mhTWcHqWT7" class="nav-link discord-link" target="_blank">Discord</a>
+                    <a href="https://baroncraft.tilda.ws/" class="nav-link wiki-link" target="_blank">Вики</a>
                     <a href="https://t.me/baronvikont1" class="nav-link support-link" target="_blank">Тех. поддержка</a>
                     <a href="https://baroncraft48.trademc.org/" class="nav-link donate-link" target="_blank">Донат</a>
                     <a href="http://baroncraft.mc-join.xyz:20881/" class="nav-link map-link" target="_blank">Карта</a>
@@ -413,16 +395,6 @@
             </div>
 
             <p>На сервере установлена карта реального мира. Здесь вы можете создать своё государство или присоединиться к одному из уже существующих, чтобы захватить весь мир!</p>
-            
-            <!-- Новые ссылки-кнопки -->
-            <div class="guide-links">
-                <a href="https://github.com/TownyAdvanced/Towny/wiki" class="guide-link" target="_blank">
-                    Как создать город/государство
-                </a>
-                <a href="https://github.com/TownyAdvanced/FlagWar/wiki" class="guide-link" target="_blank">
-                    Как объявить войну
-                </a>
-            </div>
         </div>
     </section>
 
