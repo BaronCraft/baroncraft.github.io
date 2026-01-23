@@ -541,234 +541,215 @@
         // Глобальное хранилище комментариев в памяти сайта
         window.baroncraftComments = window.baroncraftComments || [];
 
-        // Loading screen
+        // Loading screen - УПРОЩЕННАЯ ВЕРСИЯ БЕЗ ОШИБОК
         window.addEventListener('load', function() {
             setTimeout(function() {
                 const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.opacity = '0';
-                setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                }, 300);
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(function() {
+                        loadingScreen.style.display = 'none';
+                    }, 300);
+                }
             }, 500);
         });
 
-        // Modal functionality
+        // Основной код, который запускается после загрузки DOM
         document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('startServerModal');
-            const startServerBtn = document.getElementById('startServerBtn');
-            const closeModal = document.querySelector('.close-modal');
-            const cancelBtn = document.getElementById('cancelBtn');
-
-            // Open modal
-            if (startServerBtn) {
-                startServerBtn.addEventListener('click', function() {
-                    modal.style.display = 'block';
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling
-                });
-            }
-
-            // Close modal functions
-            function closeModalFunc() {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Enable scrolling
-            }
-
-            if (closeModal) {
-                closeModal.addEventListener('click', closeModalFunc);
-            }
             
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', closeModalFunc);
-            }
-
-            // Close modal when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    closeModalFunc();
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && modal && modal.style.display === 'block') {
-                    closeModalFunc();
-                }
-            });
-        });
-
-        // Theme switching
-        document.addEventListener('DOMContentLoaded', function() {
+            // Theme switching - ТЕПЕРЬ БЕЗ ОШИБОК
             const themeBtn = document.getElementById('themeBtn');
             const footerThemeBtn = document.getElementById('footerThemeBtn');
             const body = document.body;
             
-            // Темы в порядке переключения
-            const themes = ['light', 'dark', 'red'];
-            
-            // Загружаем сохранённую тему или устанавливаем светлую по умолчанию
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            body.setAttribute('data-theme', savedTheme);
-            
-            // Функция переключения темы
-            function switchTheme() {
-                const currentTheme = body.getAttribute('data-theme');
-                const currentIndex = themes.indexOf(currentTheme);
-                const nextIndex = (currentIndex + 1) % themes.length;
-                const nextTheme = themes[nextIndex];
+            if (body) {
+                // Темы в порядке переключения
+                const themes = ['light', 'dark', 'red'];
                 
-                body.setAttribute('data-theme', nextTheme);
-                localStorage.setItem('theme', nextTheme);
-            }
-            
-            // Обработчики клика
-            if (themeBtn) {
-                themeBtn.addEventListener('click', switchTheme);
-            }
-            
-            if (footerThemeBtn) {
-                footerThemeBtn.addEventListener('click', switchTheme);
-            }
-
-            // IP Copy functionality
-            const ipBtn = document.getElementById('ipBtn');
-            const serverIp = 'baroncraft.mc-join.xyz';
-            const originalText = ipBtn ? ipBtn.textContent : '';
-
-            if (ipBtn) {
-                ipBtn.addEventListener('click', function() {
-                    navigator.clipboard.writeText(serverIp).then(function() {
-                        ipBtn.textContent = 'Скопировано!';
-                        ipBtn.classList.add('copied');
-                        ipBtn.disabled = true;
-                        
-                        setTimeout(function() {
-                            ipBtn.textContent = originalText;
-                            ipBtn.classList.remove('copied');
-                            ipBtn.disabled = false;
-                        }, 2000);
-                    }).catch(function(err) {
-                        const textArea = document.createElement('textarea');
-                        textArea.value = serverIp;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(textArea);
-                        
-                        ipBtn.textContent = 'Скопировано!';
-                        ipBtn.classList.add('copied');
-                        ipBtn.disabled = true;
-                        
-                        setTimeout(function() {
-                            ipBtn.textContent = originalText;
-                            ipBtn.classList.remove('copied');
-                            ipBtn.disabled = false;
-                        }, 2000);
-                    });
-                });
-            }
-
-            // Typing Animation
-            const typingText = document.getElementById('typingText');
-            const texts = [
-                "Войди в историю сервера и измени её!",
-                "Создай своё государство! Развивайся! Воюй и побеждай!"
-            ];
-            
-            if (typingText) {
-                let textIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-                let typingSpeed = 100;
-                let deletingSpeed = 50;
-                let pauseTime = 2000;
-
-                function typeWriter() {
-                    const currentText = texts[textIndex];
+                // Загружаем сохранённую тему или устанавливаем светлую по умолчанию
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                body.setAttribute('data-theme', savedTheme);
+                
+                // Функция переключения темы
+                function switchTheme() {
+                    const currentTheme = body.getAttribute('data-theme');
+                    const currentIndex = themes.indexOf(currentTheme);
+                    const nextIndex = (currentIndex + 1) % themes.length;
+                    const nextTheme = themes[nextIndex];
                     
-                    if (isDeleting) {
-                        // Удаление текста
-                        typingText.textContent = currentText.substring(0, charIndex - 1);
-                        charIndex--;
-                        typingSpeed = deletingSpeed;
-                    } else {
-                        // Печать текста
-                        typingText.textContent = currentText.substring(0, charIndex + 1);
-                        charIndex++;
-                        typingSpeed = 100;
-                    }
-
-                    // Если текст напечатан полностью
-                    if (!isDeleting && charIndex === currentText.length) {
-                        isDeleting = true;
-                        typingSpeed = pauseTime;
-                    }
-                    // Если текст полностью удалён
-                    else if (isDeleting && charIndex === 0) {
-                        isDeleting = false;
-                        textIndex = (textIndex + 1) % texts.length;
-                        typingSpeed = 500;
-                    }
-
-                    setTimeout(typeWriter, typingSpeed);
+                    body.setAttribute('data-theme', nextTheme);
+                    localStorage.setItem('theme', nextTheme);
+                }
+                
+                // Обработчики клика
+                if (themeBtn) {
+                    themeBtn.addEventListener('click', switchTheme);
+                }
+                
+                if (footerThemeBtn) {
+                    footerThemeBtn.addEventListener('click', switchTheme);
                 }
 
-                // Запуск анимации
-                setTimeout(typeWriter, 1000);
-            }
-
-            // Мобильное меню
-            const menuToggle = document.getElementById('menuToggle');
-            const navControls = document.getElementById('navControls');
-            const body = document.body;
-
-            if (menuToggle && navControls) {
-                menuToggle.addEventListener('click', function() {
-                    menuToggle.classList.toggle('active');
-                    navControls.classList.toggle('active');
-                    body.classList.toggle('menu-open');
+                // IP Copy functionality
+                const ipBtn = document.getElementById('ipBtn');
+                const serverIp = 'baroncraft.mc-join.xyz';
+                
+                if (ipBtn) {
+                    const originalText = ipBtn.textContent;
                     
-                    // Блокировка скролла при открытом меню
-                    if (body.classList.contains('menu-open')) {
-                        body.style.overflow = 'hidden';
-                    } else {
-                        body.style.overflow = '';
-                    }
-                });
-
-                // Закрытие меню при клике на ссылку
-                const navLinks = document.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        menuToggle.classList.remove('active');
-                        navControls.classList.remove('active');
-                        body.classList.remove('menu-open');
-                        body.style.overflow = '';
+                    ipBtn.addEventListener('click', function() {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(serverIp).then(function() {
+                                ipBtn.textContent = 'Скопировано!';
+                                ipBtn.classList.add('copied');
+                                ipBtn.disabled = true;
+                                
+                                setTimeout(function() {
+                                    ipBtn.textContent = originalText;
+                                    ipBtn.classList.remove('copied');
+                                    ipBtn.disabled = false;
+                                }, 2000);
+                            }).catch(function(err) {
+                                // Fallback для старых браузеров
+                                copyToClipboardFallback(serverIp, ipBtn, originalText);
+                            });
+                        } else {
+                            // Fallback для старых браузеров
+                            copyToClipboardFallback(serverIp, ipBtn, originalText);
+                        }
                     });
-                });
+                }
 
-                // Закрытие меню при клике вне его
-                document.addEventListener('click', function(event) {
-                    const isClickInsideMenu = navControls.contains(event.target) || menuToggle.contains(event.target);
+                // Вспомогательная функция для копирования
+                function copyToClipboardFallback(text, button, originalText) {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
                     
-                    if (!isClickInsideMenu && navControls.classList.contains('active')) {
-                        menuToggle.classList.remove('active');
-                        navControls.classList.remove('active');
-                        body.classList.remove('menu-open');
-                        body.style.overflow = '';
+                    try {
+                        document.execCommand('copy');
+                        button.textContent = 'Скопировано!';
+                        button.classList.add('copied');
+                        button.disabled = true;
+                        
+                        setTimeout(function() {
+                            button.textContent = originalText;
+                            button.classList.remove('copied');
+                            button.disabled = false;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Не удалось скопировать текст: ', err);
                     }
-                });
+                    
+                    document.body.removeChild(textArea);
+                }
 
-                // Закрытие меню при нажатии Escape
-                document.addEventListener('keydown', function(event) {
-                    if (event.key === 'Escape' && navControls.classList.contains('active')) {
-                        menuToggle.classList.remove('active');
-                        navControls.classList.remove('active');
-                        body.classList.remove('menu-open');
-                        body.style.overflow = '';
+                // Typing Animation
+                const typingText = document.getElementById('typingText');
+                const texts = [
+                    "Войди в историю сервера и измени её!",
+                    "Создай своё государство! Развивайся! Воюй и побеждай!"
+                ];
+                
+                if (typingText) {
+                    let textIndex = 0;
+                    let charIndex = 0;
+                    let isDeleting = false;
+                    let typingSpeed = 100;
+                    
+                    function typeWriter() {
+                        const currentText = texts[textIndex];
+                        
+                        if (isDeleting) {
+                            // Удаление текста
+                            typingText.textContent = currentText.substring(0, charIndex - 1);
+                            charIndex--;
+                            typingSpeed = 50;
+                        } else {
+                            // Печать текста
+                            typingText.textContent = currentText.substring(0, charIndex + 1);
+                            charIndex++;
+                            typingSpeed = 100;
+                        }
+
+                        // Если текст напечатан полностью
+                        if (!isDeleting && charIndex === currentText.length) {
+                            isDeleting = true;
+                            typingSpeed = 2000; // Пауза перед удалением
+                        }
+                        // Если текст полностью удалён
+                        else if (isDeleting && charIndex === 0) {
+                            isDeleting = false;
+                            textIndex = (textIndex + 1) % texts.length;
+                            typingSpeed = 500; // Пауза перед печатью нового текста
+                        }
+
+                        setTimeout(typeWriter, typingSpeed);
                     }
-                });
+
+                    // Запуск анимации с небольшой задержкой
+                    setTimeout(typeWriter, 1000);
+                }
+
+                // Мобильное меню
+                const menuToggle = document.getElementById('menuToggle');
+                const navControls = document.getElementById('navControls');
+                
+                if (menuToggle && navControls) {
+                    menuToggle.addEventListener('click', function() {
+                        menuToggle.classList.toggle('active');
+                        navControls.classList.toggle('active');
+                        body.classList.toggle('menu-open');
+                        
+                        // Блокировка скролла при открытом меню
+                        if (body.classList.contains('menu-open')) {
+                            body.style.overflow = 'hidden';
+                        } else {
+                            body.style.overflow = '';
+                        }
+                    });
+
+                    // Закрытие меню при клике на ссылку
+                    const navLinks = document.querySelectorAll('.nav-link');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', function() {
+                            menuToggle.classList.remove('active');
+                            navControls.classList.remove('active');
+                            body.classList.remove('menu-open');
+                            body.style.overflow = '';
+                        });
+                    });
+
+                    // Закрытие меню при клике вне его
+                    document.addEventListener('click', function(event) {
+                        const isClickInsideMenu = navControls.contains(event.target);
+                        const isClickOnToggle = menuToggle.contains(event.target);
+                        
+                        if (!isClickInsideMenu && !isClickOnToggle && navControls.classList.contains('active')) {
+                            menuToggle.classList.remove('active');
+                            navControls.classList.remove('active');
+                            body.classList.remove('menu-open');
+                            body.style.overflow = '';
+                        }
+                    });
+
+                    // Закрытие меню при нажатии Escape
+                    document.addEventListener('keydown', function(event) {
+                        if (event.key === 'Escape' && navControls.classList.contains('active')) {
+                            menuToggle.classList.remove('active');
+                            navControls.classList.remove('active');
+                            body.classList.remove('menu-open');
+                            body.style.overflow = '';
+                        }
+                    });
+                }
             }
         });
+
+        // Убираем проблемный код с модальным окном, так как его элементов нет на странице
     </script>
 </body>
 </html>
