@@ -31,8 +31,35 @@
         }
         @keyframes fadeIn { to { opacity: 1; } }
         
-        /* Стили для кнопок с градиентом */
-        .http, .theme-btn {
+        /* Стили для кнопки с градиентом */
+        .http {
+            background: linear-gradient(135deg, #8B0000, #B22222, #DC143C);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(139, 0, 0, 0.3);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+        
+        .http:hover {
+            background: linear-gradient(135deg, #9B0000, #C23232, #EC244C);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(139, 0, 0, 0.4);
+        }
+        
+        .http:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
+        }
+        
+        /* Стили для второй кнопки в футере */
+        .theme-btn {
             background: linear-gradient(135deg, #8B0000, #B22222, #DC143C);
             color: white;
             border: none;
@@ -46,23 +73,22 @@
             font-size: 16px;
         }
         
-        .http:hover, .theme-btn:hover {
+        .theme-btn:hover {
             background: linear-gradient(135deg, #9B0000, #C23232, #EC244C);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(139, 0, 0, 0.4);
         }
         
-        .http:active, .theme-btn:active {
+        .theme-btn:active {
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
         }
         
-        /* Стили для навигации - оптимизировано для мобильных */
+        /* Стили для навигации */
         header {
-            padding: 15px 0;
+            padding: 20px 0;
             background: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
         
         .nav-container {
@@ -70,8 +96,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
-            padding: 0 15px;
+            gap: 20px;
         }
         
         .logo {
@@ -79,41 +104,18 @@
             align-items: center;
             text-decoration: none;
             color: inherit;
-            flex-shrink: 0;
-            z-index: 1001;
         }
         
         .logo img {
-            height: 35px;
-            width: 35px;
-            margin-right: 8px;
+            height: 40px;
+            width: 40px;
+            margin-right: 10px;
         }
         
         .logo-text {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: #8B0000;
-            white-space: nowrap;
-        }
-        
-        /* Гамбургер-меню для мобильных */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            z-index: 1001;
-        }
-        
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: #8B0000;
-            margin: 4px 0;
-            transition: 0.3s;
-            border-radius: 2px;
         }
         
         .nav-controls {
@@ -126,24 +128,19 @@
         .nav-menu {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
             margin: 0;
             padding: 0;
-            transition: all 0.3s ease;
         }
         
         .nav-link {
-            padding: 10px 12px;
+            padding: 10px 15px;
             text-decoration: none;
             color: #333;
             font-weight: 500;
             border-radius: 5px;
             transition: all 0.3s ease;
             white-space: nowrap;
-            font-size: 14px;
-            text-align: center;
-            flex: 1;
-            min-width: 0;
         }
         
         .nav-link:hover {
@@ -158,8 +155,10 @@
         
         .telegram-link:hover {
             background: linear-gradient(135deg, #0099e6, #00bfff) !important;
+            transform: translateY(-2px);
         }
         
+        /* Новый стиль для Discord кнопки */
         .discord-link {
             background: linear-gradient(135deg, #5865F2, #4752C4);
             color: white !important;
@@ -167,8 +166,10 @@
         
         .discord-link:hover {
             background: linear-gradient(135deg, #6875FF, #5762D4) !important;
+            transform: translateY(-2px);
         }
         
+        /* Новый стиль для Wiki кнопки */
         .wiki-link {
             background: linear-gradient(135deg, #2E7D32, #1B5E20);
             color: white !important;
@@ -176,6 +177,7 @@
         
         .wiki-link:hover {
             background: linear-gradient(135deg, #3E8D42, #2B6E30) !important;
+            transform: translateY(-2px);
         }
         
         .support-link {
@@ -185,6 +187,7 @@
         
         .support-link:hover {
             background: linear-gradient(135deg, #5CBF60, #55b059) !important;
+            transform: translateY(-2px);
         }
         
         .donate-link {
@@ -194,6 +197,7 @@
         
         .donate-link:hover {
             background: linear-gradient(135deg, #FFE700, #FFB500) !important;
+            transform: translateY(-2px);
         }
         
         .map-link {
@@ -203,6 +207,7 @@
         
         .map-link:hover {
             background: linear-gradient(135deg, #AC37C0, #8B2FB2) !important;
+            transform: translateY(-2px);
         }
         
         /* Стили для секции героя */
@@ -233,124 +238,73 @@
         
         .hero p {
             font-size: 1.1rem;
-            color: #ffffff;
+            color: #ffffff; /* Изменено с #555 на #ffffff (белый) */
             line-height: 1.6;
             margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Добавлена тень для лучшей читаемости */
         }
         
-        /* Медиа-запросы для мобильных устройств */
-        @media (max-width: 1024px) {
-            .nav-menu {
-                gap: 8px;
-            }
-            
-            .nav-link {
-                padding: 8px 10px;
-                font-size: 13px;
-            }
-        }
-        
+        /* Адаптивные стили для мобильных устройств */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
             }
             
-            .nav-container {
-                flex-wrap: nowrap;
-                gap: 10px;
+            .logo {
+                justify-content: center;
+                margin-bottom: 10px;
             }
             
             .nav-controls {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%;
-                height: 100vh;
-                background: white;
+                justify-content: center;
                 flex-direction: column;
-                justify-content: flex-start;
-                padding: 80px 20px 20px;
-                transition: right 0.3s ease;
-                z-index: 1000;
-                overflow-y: auto;
-            }
-            
-            .nav-controls.active {
-                right: 0;
+                align-items: center;
+                gap: 15px;
             }
             
             .nav-menu {
-                flex-direction: column;
+                justify-content: center;
                 width: 100%;
                 gap: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
             
             .nav-link {
-                width: 100%;
-                padding: 15px;
-                font-size: 16px;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 8px 12px;
+                font-size: 14px;
+                flex: 1;
+                min-width: 0;
+                text-align: center;
             }
             
             .http {
-                width: 100%;
                 margin-left: 0;
-                padding: 15px;
-                font-size: 16px;
-                order: -1;
-            }
-            
-            /* Анимация гамбургера в крестик */
-            .menu-toggle.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-            
-            .menu-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-            
-            .menu-toggle.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -6px);
-            }
-            
-            /* Оверлей для меню */
-            .menu-overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
                 width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-            }
-            
-            .menu-overlay.active {
-                display: block;
+                max-width: 200px;
             }
         }
         
         @media (max-width: 480px) {
-            .logo img {
-                height: 30px;
-                width: 30px;
-            }
-            
-            .logo-text {
-                font-size: 18px;
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 8px;
             }
             
             .nav-link {
-                padding: 12px;
-                font-size: 15px;
+                flex: 1 1 calc(50% - 8px);
+                min-width: 120px;
+                padding: 10px 8px;
+                font-size: 13px;
             }
             
-            .http {
-                padding: 12px;
-                font-size: 15px;
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .logo img {
+                height: 32px;
+                width: 32px;
             }
             
             .hero h1 {
@@ -366,22 +320,15 @@
             }
         }
         
+        /* Дополнительные адаптивные стили для очень маленьких экранов */
         @media (max-width: 360px) {
-            .nav-container {
-                padding: 0 10px;
-            }
-            
-            .logo-text {
-                font-size: 16px;
-            }
-            
             .nav-link {
-                padding: 10px;
-                font-size: 14px;
+                flex: 1 1 100%;
+                margin: 2px 0;
             }
             
             .http {
-                padding: 10px;
+                padding: 10px 16px;
                 font-size: 14px;
             }
         }
@@ -405,6 +352,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" 
               rel="stylesheet">
     </noscript>
+
+    <!-- Уберите или закомментируйте скрипт Касперского для ускорения -->
+    <!-- <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/..." charset="UTF-8"></script> -->
 </head>
 <body data-theme="light">
     <!-- Loading Screen -->
@@ -420,14 +370,7 @@
                 <div class="logo-text">BaronCraft</div>
             </a>
             
-            <!-- Кнопка гамбургер-меню -->
-            <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <div class="nav-controls" id="navControls">
+            <div class="nav-controls">
                 <div class="nav-menu" id="navMenu">
                     <a href="https://t.me/baroncraft_channel" class="nav-link telegram-link" target="_blank">Telegram</a>
                     <a href="https://discord.gg/mhTWcHqWT7" class="nav-link discord-link" target="_blank">Discord</a>
@@ -438,9 +381,6 @@
                 </div>
                 <button class="http" id="themeBtn">Сменить тему</button>
             </div>
-            
-            <!-- Оверлей для мобильного меню -->
-            <div class="menu-overlay" id="menuOverlay"></div>
         </div>
     </header>
 
@@ -512,62 +452,6 @@
             }, 500);
         });
 
-        // Гамбургер-меню для мобильных устройств
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menuToggle');
-            const navControls = document.getElementById('navControls');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const themeBtn = document.getElementById('themeBtn');
-            
-            // Функция переключения меню
-            function toggleMenu() {
-                menuToggle.classList.toggle('active');
-                navControls.classList.toggle('active');
-                menuOverlay.classList.toggle('active');
-                document.body.style.overflow = navControls.classList.contains('active') ? 'hidden' : 'auto';
-            }
-            
-            // Открытие/закрытие меню по клику на гамбургер
-            menuToggle.addEventListener('click', toggleMenu);
-            
-            // Закрытие меню по клику на оверлей
-            menuOverlay.addEventListener('click', toggleMenu);
-            
-            // Закрытие меню по клику на ссылки (для мобильных)
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        toggleMenu();
-                    }
-                });
-            });
-            
-            // Закрытие меню по клику на кнопку темы (для мобильных)
-            themeBtn.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    toggleMenu();
-                }
-            });
-            
-            // Закрытие меню при изменении размера окна
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    menuToggle.classList.remove('active');
-                    navControls.classList.remove('active');
-                    menuOverlay.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Закрытие меню при нажатии Escape
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && navControls.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
-        });
-
         // Modal functionality
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('startServerModal');
@@ -576,26 +460,19 @@
             const cancelBtn = document.getElementById('cancelBtn');
 
             // Open modal
-            if (startServerBtn) {
-                startServerBtn.addEventListener('click', function() {
-                    modal.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                });
-            }
+            startServerBtn.addEventListener('click', function() {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
 
             // Close modal functions
             function closeModalFunc() {
                 modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = 'auto'; // Enable scrolling
             }
 
-            if (closeModal) {
-                closeModal.addEventListener('click', closeModalFunc);
-            }
-            
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', closeModalFunc);
-            }
+            closeModal.addEventListener('click', closeModalFunc);
+            cancelBtn.addEventListener('click', closeModalFunc);
 
             // Close modal when clicking outside
             window.addEventListener('click', function(event) {
@@ -606,7 +483,7 @@
 
             // Close modal with Escape key
             document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && modal && modal.style.display === 'block') {
+                if (event.key === 'Escape' && modal.style.display === 'block') {
                     closeModalFunc();
                 }
             });
